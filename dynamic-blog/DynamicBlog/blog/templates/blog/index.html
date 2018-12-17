@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!--==================-->
+<!-- The Head Section -->
+<!--==================-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="{% static 'blog/style.css'%}">
+    <title>Main Page</title>
+</head>
+
+<body>
+    <div class="linksection">
+		<p>
+			<a class="links" href="{% url 'blog:index' %}">
+				<img id="homeicon" alt="icon of a home" src="{% static "blog/home_icon.png" %}">Home</a>
+
+            <a class="links" href="{% url 'blog:archive' %}">
+				<img id="scrollicon" alt="picture scroll" src="{% static "blog/scroll_icon.png" %}">Archive</a>
+
+            {% comment %} <a class="links" href="{% url 'blog:sepuku' %}">
+                <img id="bombicon" alt = "icon of bomb" src="{% static "blog/bomb_icon.png" %}">Nuke It</a> {% endcomment %}
+
+            <a class="links" href="{% url 'blog:init' %}">
+                <img id="babyicon" alt = "icon of baby" src="{% static "blog/baby_icon.png" %}">Init</a>
+
+			{% comment %} <a class="links" href="{% url 'about' %}">
+				<img id="rrhead" alt="robbie rotten's head" src="{% static "blog/rr_head.png" %}">About Me</a> {% endcomment %}  
+        </p>
+	</div>
+    <div class="blogpostsection">
+        <!--================-->
+        <!-- The Page Title -->
+        <!--================-->
+        <h1>Main Page:</h1>
+	    {% comment %} <h4 id="datetime">The current time is: {{ now }}</h4> {% endcomment %}
+            {% for b in blogs %}
+            <article>
+                <h2><a href = "{% url 'blog:detail' b.id %}"> {{b.title}}</a></h2>
+                <strong> Posted at {{ b.pub_date|date:'Y-m-d H:i:s' }} by {{b.author}}</strong>
+                <p> {{b.content|truncatewords:200}} </p>
+                <div class="commentsection">
+                    <p> <a href = "{% url 'blog:detail' b.id %}">{{b.comments.count}} Comments</a> </p>
+                </div>
+            </article>
+            {% endfor %}
+    </div>
+</body>
+
+</html>

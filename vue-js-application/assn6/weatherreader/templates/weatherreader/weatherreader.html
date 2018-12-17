@@ -1,0 +1,42 @@
+{% load static %} <!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Weather Reader</title>
+    <meta charset="utf-8" />
+    <script src="{% static 'weatherreader/vue.js' %}"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'weatherreader/weatherreader.css' %}"
+    />
+  </head>
+
+  <body>
+    <div id="base">
+      <div v-if="currentString == -1">
+        <img src="{% static  'weatherreader/r2.gif' %}" />
+      </div>
+      <div v-else id="day">
+        <pre id="daydata">[% currentString %]</pre>
+      </div>
+      <div counters> 
+        <p># Default: [% defaulty %] || # Likely: [% likely %] || # Unlikely: [% unlikely %]</p>
+      </div>
+      <div v-if="forecast == null">
+        <img src="{% static  'weatherreader/yoda.gif' %}" />
+      </div>
+      <div v-else id="forecast">
+        <div id="bitholder">
+          <div v-for="bit in forecast":key="bit.id" id="bit" class="default" @click="changeStates(bit.txt, $event)">
+            <pre> [% bit.txt %] <pre>
+            {% comment %} <p>id: [%bit.id%] </p> {% endcomment %}
+            {% comment %} Status: [% bit.vote %]  {% endcomment %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="{% static 'weatherreader/weatherreader.js' %}"></script>
+  </body>
+</html>

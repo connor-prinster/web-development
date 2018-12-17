@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!--==============-->
+<!-- Head Section -->
+<!--==============-->
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="{% static 'blog/style.css'%}">
+	<title>Tech Tips</title>
+</head>
+
+<body>
+	<div class="linksection">
+		<p>
+			<a class="links" href="{% url 'index' %}">
+				<img id="homeicon" alt="icon of a home" src="{% static "blog/home_icon.png" %}">Home</a>
+
+            <a class="links" href="{% url 'archive' %}">
+				<img id="scrollicon" alt="picture scroll" src="{% static "blog/scroll_icon.png" %}">Archive</a>
+
+            {% comment %} <a class="links" href="{% url 'sepuku' %}">
+                <img id="bombicon" alt = "icon of bomb" src="{% static "blog/bomb_icon.png" %}">Nuke It</a> {% endcomment %}
+
+            <a class="links" href="{% url 'init' %}">
+                <img id="babyicon" alt = "icon of baby" src="{% static "blog/baby_icon.png" %}">Init</a>
+
+			{% comment %} <a class="links" href="{% url 'about' %}">
+				<img id="rrhead" alt="robbie rotten's head" src="{% static "blog/rr_head.png" %}">About Me</a> {% endcomment %}  
+        </p>
+	</div>
+	<!--===============-->
+	<!-- Links Section -->
+	<!--===============-->
+	<h1>Tech Tips:</h1>
+	<h4 id="datetime">The current time is: {{ now }}</h4>
+
+
+	<br>
+	<br>
+
+	<!--===============-->
+	<!-- Table Section -->
+	<!--===============-->
+	<div class="gittable">
+		<table style="width:50%">
+			<!-- Header Row -->
+			<tr>
+				<th>Command Name</th>
+				<th>Description</th>
+				<th>Example</th>
+			</tr>
+			<!-- First Row -->
+			<tr>
+				<td>git init</td>
+				<td>initialize a local repository</td>
+				<td>
+					<code>git init</code>
+				</td>
+			</tr>
+			<!-- Second Row -->
+			<tr>
+				<td>git add *.*</td>
+				<td>add a file directly to remote repository</td>
+				<td>
+					<code>git add example.txt</code>
+				</td>
+			</tr>
+			<!-- Third Row -->
+			<tr>
+				<td>git logged</td>
+				<td>print out list of all previous commits</td>
+				<td>
+					<code>git logged</code>
+				</td>
+			</tr>
+			<!-- Fourth Row -->
+			<tr>
+				<td>git fix</td>
+				<td>refactor all code recursively inside local repository</td>
+				<td>
+					<code>git fix example-repo</code>
+				</td>
+			</tr>
+			<!-- Fifth Row -->
+			<tr>
+				<td>git kill *.*</td>
+				<td>remove all files referenced in the file to avoid dependency errors</td>
+				<td>
+					<code>git kid example.cpp</code>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

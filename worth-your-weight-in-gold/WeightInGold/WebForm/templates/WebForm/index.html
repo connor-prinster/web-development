@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Worth Your Weight in Gold</title>
+</head>
+
+<script>
+    var convert = function() {
+        var currentDate = new Date();
+        var pastDate = returnPastDay(currentDate, 5);
+
+        var day = currentDate.getHours();
+        var year = currentDate.getFullYear();
+        var month = currentDate.getMonth();
+
+        var past = pastDate.getFullYear().toString() + "-" +  (pastDate.getMonth() + 1).toString() + "-" +  pastDate.getDate().toString();
+        var current = currentDate.getFullYear().toString() + "-" +  (currentDate.getMonth() + 1).toString() + "-" +  currentDate.getDate().toString();
+
+        let apiKey = 'rzyN8sTYUdY8PqBEH_5Z';
+        
+        var goldUrl = "https://www.quandl.com/api/v3/datasets/LBMA/GOLD.json?api_key=" + apiKey + "&column_index=2&start_date=" + past + "&end_date=" + current
+        let goldRequest = new XMLHttpRequest();
+        goldRequest.open('GET', goldUrl);
+        goldRequest.responseType = 'json'
+        goldRequest.send();
+
+        var goldPrice;
+        goldRequest.onload = function() {
+            goldPrice = goldRequest.response.dataset.data[0][1]
+
+            let base = 'http://localhost:8000/conversion/'; //when running localhost, use this as root stuff
+            let fromVal = 'lbs'; //will eventually have more conversion options
+            let toVal = 't_oz'; // will eventually have more values
+            let weight = document.querySelector('#wip').value;
+            let totalPath = base + '?from=' + fromVal + '&to=' + toVal + '&value=' + weight; // based on stuff above, make the query
+
+            let request = new XMLHttpRequest();
+            request.open('GET', totalPath);
+            request.responseType = 'json'
+            request.send();
+            request.onload = function() {
+                let worth = "You are worth $";
+                let convFactor = request.response.value
+                let output = document.querySelector("#outputPara")
+
+                let outputMessage = (goldPrice * convFactor * weight).toFixed(2);
+
+                if(isNaN(outputMessage)) {
+                    output.textContent = request.response.error
+                }
+                else {
+                    output.textContent = worth + outputMessage
+                }
+            }
+        }
+    }
+
+    var returnPastDay = function(date, days) {
+        return new Date(date.getTime() - days*86400000);
+    }
+</script>
+
+<body>
+    <h2>Discover Your True Worth!</h2>
+    <form>
+        Weight in Pounds: <input type="number" id="wip">
+        <button type="button" onclick="convert()" >Submit</button>
+    </form>
+    <p id=outputPara></p>
+    
+    
+</body>
+

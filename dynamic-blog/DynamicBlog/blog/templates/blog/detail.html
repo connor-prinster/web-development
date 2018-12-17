@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!--==================-->
+<!-- The Head Section -->
+<!--==================-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="{% static 'blog/style.css'%}">
+    <title>Main Page</title>
+</head>
+
+<body>
+    <div class="linksection">
+		<p>
+			<a class="links" href="{% url 'blog:index' %}">
+				<img id="homeicon" alt="icon of a home" src="{% static "blog/home_icon.png" %}">Home</a>
+
+            <a class="links" href="{% url 'blog:archive' %}">
+				<img id="scrollicon" alt="picture scroll" src="{% static "blog/scroll_icon.png" %}">Archive</a>
+
+            {% comment %} <a class="links" href="{% url 'blog:sepuku' %}">
+                <img id="bombicon" alt = "icon of bomb" src="{% static "blog/bomb_icon.png" %}">Nuke It</a> {% endcomment %}
+
+            <a class="links" href="{% url 'blog:init' %}">
+                <img id="babyicon" alt = "icon of baby" src="{% static "blog/baby_icon.png" %}">Init</a>
+                
+			{% comment %} <a class="links" href="{% url 'about' %}">
+				<img id="rrhead" alt="robbie rotten's head" src="{% static "blog/rr_head.png" %}">About Me</a> {% endcomment %}  
+        </p>
+	</div>
+    <div class="blogpostsection">
+        <!--================-->
+        <!-- The Page Title -->
+        <!--================-->
+        <h1>{{ blog.title }}</h1>
+        <article>
+            <strong> Posted at {{ blog.pub_date|date:'Y-m-d H:i:s' }} by {{blog.author}}</strong>
+            <p> {{ blog.content }} </p>
+            <b> {{blog.comments.count}} comments </b>
+
+            <form action="{% url 'blog:comment' blog.id %}" method="post">
+            {% csrf_token %}
+                <div id="title">
+                    <label for="title">Title:</label>
+                    <input type="text" id="name_tag" name="title">
+                </div>
+                <div id="emailline">
+                    <label for="mail">E-mail:</label>
+                    <input type="email" id="mail_address" name="user_mail">
+                </div>
+                <div id="commentbody">
+                    <label for="msg">Comment:</label>
+                    <textarea id="msg" name="user_message"></textarea>
+                </div id="submitbutton">
+                    <button type="submitt">Post Comment</button>
+                <div>
+            </form>
+
+            <div class="detailcommentlist">
+                {% for c in comments %}
+                    <h4> {{ c.title }} by <i>{{c.author}}</i> at {{c.pub_date}} </h4>
+                    <p> {{ c.content }} </p>
+                    <h1></h1>
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+</body>
+
+</html>

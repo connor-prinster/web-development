@@ -1,0 +1,43 @@
+#day {
+  display: inline-block;
+  background-color: lightgreen;
+  margin: 10px;
+}
+
+#daydata {
+  margin: 15px;
+  width: fit-content;
+}
+
+#forecast {
+    display: flex;
+    flex-direction: column;
+    /* background-color: aliceblue; */
+    margin: 10px;
+}
+
+#bitholder {
+    display: inline-block;
+    width: fit-content;
+    background-color: darkgray;
+}
+
+.bit {
+    margin: 10px;
+    background-color: wheat;
+}
+
+.default {
+    margin: 10px;
+    background-color: wheat;
+}
+
+.likely {
+    margin: 10px;
+    background-color: lightgreen;
+}
+
+.unlikely {
+    margin: 10px;
+    background-color: salmon;
+}
