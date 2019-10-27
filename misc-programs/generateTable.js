@@ -439,12 +439,65 @@ let generateMovieStatements = () => {
     return final;
 }
 
+let generateCastInValueStatement = (values) => {
+    let string = "(";
+    let ctr = 0; 
+
+    while(ctr < (values.length - 1)) {
+        if(ctr < 2) {
+            string += ("'" + values[ctr] + "'");
+        }
+        else {
+            string += values[ctr];
+        }
+        string += ", ";
+        ctr++;
+    }
+    string += (values[ctr] + ")")
+    return string;
+}
+
+let generateCastInStatements = () => {  
+    let movieShuffle = arrShuffle(movieList);
+    let actorShuffle = arrShuffle(actorList);
+
+    let final = "";
+    let table = "castIn";
+    let maxLength = decideSmallerList(movieList, actorList);
+    for(let i = 0; i < maxLength; i++) {
+        let tempFinal = "INSERT INTO " + table + " VALUES ";
+        let randomIdx = Math.floor(Math.random() * Math.floor(maxLength - 1))
+        let vals = [actorShuffle[randomIdx], movieShuffle[randomIdx], Math.floor(Math.random() * 1000)];
+        tempFinal += generateCastInValueStatement(vals) + ";\n";
+        final += tempFinal
+    }
+    return final;
+}
+
+let decideSmallerList = (list1, list2) => {
+    return ((list1.length > list2.length) ? list2.length : list1.length);
+}
+
 let returnGender = () => {
     let val = Math.floor(Math.random() * 20);
     return (val % 2 == 0) ? "'MALE'" : "'FEMALE'";
 }
 
+let arrShuffle = (array) => {
+    for(let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * i)
+        const temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+    }
+    return array;
+}
+
 let main = () => {
-    let complete = generateActorStatements() + "\n" + generateMovieStatements();
+    let complete = 
+        generateActorStatements() + "\n" + 
+        generateMovieStatements() + "\n" + 
+        generateCastInStatements();
+
     console.log(complete);
 }
