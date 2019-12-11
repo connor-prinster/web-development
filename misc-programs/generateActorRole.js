@@ -50,6 +50,16 @@ let generateRandom = (rand) => {
 }
 
 
-let main = () => {
+let generateActorRole = () => {
     console.log(generateActor() + "\n" + generateRole());
+}
+
+let generateStudents = () => {
+    let string = "";
+    for(let i = 0; i < 1000; i++) {
+        let randomStudent = actorList[generateRandom(actorList.length)];
+        let mF = generateRandom(100) % 2 ? "male" : "female";
+        string += ("INSERT INTO student VALUES ('" + randomStudent + "', " + i + ", '" + mF + "');\n");
+    }
+    console.log(string);
 }
