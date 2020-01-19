@@ -1,0 +1,25 @@
+.hf {
+    background-color: aqua;
+    width: 80%;
+}
+
+#mainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.bodySection {
+    border: solid black 1px;
+    height: 50%;
+}
+
+#eventTextSection {
+    /* float: left; */
+    width: 40%;
+}
+
+#inputSection {
+    /* float: right; */
+    width: 40%;    
+}
