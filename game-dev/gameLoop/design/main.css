@@ -1,6 +1,18 @@
 .hf {
     background-color: aqua;
-    width: 80%;
+    background: aqua;
+    min-height: 40pt;
+    margin: 0%;
+    outline: black solid 1pt;
+}
+
+.hf p {
+    margin: 0pt;
+    padding: 20pt;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* display: inline-flex; */
 }
 
 #mainContainer {

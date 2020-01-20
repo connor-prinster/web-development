@@ -6,10 +6,23 @@ window.onload = function() {
 
     let submitButton = this.document.getElementById("submitButton")
     submitButton.onclick = () => {
-        let name = this.document.getElementById("nameInput").value
-        let interval = this.parseInt(this.document.getElementById("intervalInput").value)
-        let times = this.parseInt(this.document.getElementById("timesInput").value)
-        if(name != "" && !this.isNaN(interval) && !this.isNaN(times)) {
+        // === Nodes to Pull From
+        let nameNode = this.document.getElementById("nameInput")
+        let intervalNode = this.document.getElementById("intervalInput")
+        let timesNode = this.document.getElementById("timesInput")
+
+        // === Values From Nodes === //
+        let name = nameNode.value
+        let interval = this.parseInt(intervalNode.value)
+        let times = this.parseInt(timesNode.value)
+
+        // === Reset Values === //
+        nameNode.value = ""
+        intervalNode.value = null
+        timesNode.value = null
+
+        // === Create an Event Object === //
+        if(nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) {
             let event = {
                 "name": name, 
                 "interval": interval, 
@@ -41,8 +54,7 @@ function gameLoop(elapsedTime) {
 }
 
 function processInput(elapsedTime) {
-    // let newTime = performance.now() - elapsedTime
-    // console.log(newTime)
+    
 }
 
 function update(elapsedTime) {
