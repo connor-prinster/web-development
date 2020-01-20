@@ -7,11 +7,13 @@
     display: flex;
     flex-direction: row;
     justify-content: start;
+    min-height: 75%;
 }
 
 .bodySection {
     border: solid black 1px;
     height: 50%;
+    padding: 10pt;
 }
 
 #eventTextSection {
@@ -22,4 +24,8 @@
 #inputSection {
     /* float: right; */
     width: 40%;    
+}
+
+#submitButton {
+    margin-top: 10pt;
 }
