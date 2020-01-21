@@ -1,4 +1,4 @@
-const events = []
+let events = []
 
 window.onload = function() {
     let startTime = this.performance.now()
@@ -29,13 +29,10 @@ window.onload = function() {
                 "times": times,
                 "report": function() {
                     this.times--
-                    if(this.times > 0) {
-                        return ("Event: " + this.name + " (" + this.times + " remaining)")
-                    }
+                    return ("Event: " + this.name + " (" + this.times + " remaining)")
                 }
             }
             events.push(event)
-            console.log(events)
         }
         else {
             this.alert("Something was wrong with your input")
@@ -46,6 +43,7 @@ window.onload = function() {
 }
 
 function gameLoop(elapsedTime) {
+    // console.log(elapsedTime)
     processInput(elapsedTime)
     update(elapsedTime)
     render()
@@ -54,13 +52,27 @@ function gameLoop(elapsedTime) {
 }
 
 function processInput(elapsedTime) {
-    
+    // process input when the add event button is pressed  
+    // console.log(elapsedTime)
 }
 
 function update(elapsedTime) {
-    
+    // any active events are updated
+    if(events.length > 0) {
+        let eventsNode = this.document.getElementById("eventText")
+        const newEvents = []
+        for(let i = 0; i < events.length; i++) {
+            const event = events[i]
+            eventsNode.innerHTML += (event.report() + "<br>")
+            if(event.times != 0) {
+                newEvents.push(event)
+            }
+        }
+        events = newEvents
+    }
 }
 
 function render() {
+    // objects needing reporting are displayed
     
 }
