@@ -1,45 +1,70 @@
 let events = []
+let validEvents = []
+
+document.onkeydown = function (e) {
+    e = e || window.event;
+    switch (e.which || e.keyCode) {
+          case 13 : //Your Code Here (13 is ascii code for 'ENTER')
+              submitButtonPress()
+    }
+}
 
 window.onload = function() {
-    let startTime = this.performance.now()
-    console.log(startTime)
-
+    
     let submitButton = this.document.getElementById("submitButton")
     submitButton.onclick = () => {
-        // === Nodes to Pull From
-        let nameNode = this.document.getElementById("nameInput")
-        let intervalNode = this.document.getElementById("intervalInput")
-        let timesNode = this.document.getElementById("timesInput")
-
-        // === Values From Nodes === //
-        let name = nameNode.value
-        let interval = this.parseInt(intervalNode.value)
-        let times = this.parseInt(timesNode.value)
-
-        // === Reset Values === //
-        nameNode.value = ""
-        intervalNode.value = null
-        timesNode.value = null
-
-        // === Create an Event Object === //
-        if(nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) {
-            let event = {
-                "name": name, 
-                "interval": interval, 
-                "times": times,
-                "report": function() {
-                    this.times--
-                    return ("Event: " + this.name + " (" + this.times + " remaining)")
-                }
-            }
-            events.push(event)
-        }
-        else {
-            this.alert("Something was wrong with your input")
-        }
+        this.submitButtonPress()
     }
 
-    this.gameLoop(startTime)
+    this.gameLoop(this.performance.now())
+}
+
+function reportToNode(event) {
+    let eventsNode = this.document.getElementById("eventText")
+    event.times--
+    eventText = ("Event: " + event.name + " (" + event.times + " remaining)")
+    eventsNode.innerHTML += (eventText + "<br>")
+    return event
+}
+
+function submitButtonPress() {
+    // === Nodes to Pull From === //
+    let nameNode = this.document.getElementById("nameInput")
+    let intervalNode = this.document.getElementById("intervalInput")
+    let timesNode = this.document.getElementById("timesInput")
+
+    // === Values From Nodes === //
+    let name = nameNode.value
+    let interval = this.parseInt(intervalNode.value)
+    let times = this.parseInt(timesNode.value)
+
+    // === Reset Values === //
+    nameNode.value = ""
+    intervalNode.value = null
+    timesNode.value = null
+
+    // === Create an Event Object === //
+    if(nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) {
+        let event = {
+            "nextCall": 0,
+            "name": name, 
+            "interval": interval, 
+            "times": times
+        }
+        this.reportToNode(event)
+        event.nextCall = (event.interval + performance.now())
+        console.log("createdEvent:", event)
+        events.push(event)
+    }
+    else {
+        this.alert("Something was wrong with your input")
+    }
+}
+
+function reportToScreen(event) {
+    event = reportToNode(event)
+    event.nextCall = event.nextCall + event.interval
+    return event
 }
 
 function gameLoop(elapsedTime) {
@@ -52,27 +77,27 @@ function gameLoop(elapsedTime) {
 }
 
 function processInput(elapsedTime) {
-    // process input when the add event button is pressed  
-    // console.log(elapsedTime)
+    
 }
 
 function update(elapsedTime) {
-    // any active events are updated
-    if(events.length > 0) {
-        let eventsNode = this.document.getElementById("eventText")
-        const newEvents = []
-        for(let i = 0; i < events.length; i++) {
-            const event = events[i]
-            eventsNode.innerHTML += (event.report() + "<br>")
-            if(event.times != 0) {
-                newEvents.push(event)
+    for(let i = 0; i < events.length; i++) {
+        const event = events[i]
+        if(event.times > 0) {
+            if(elapsedTime >= event.nextCall) {
+                events.pop()
+                validEvents.push(event)
             }
         }
-        events = newEvents
+        else {
+            events.pop()
+        }
     }
+
 }
 
 function render() {
-    // objects needing reporting are displayed
-    
+    while(validEvents.length > 0) {
+        events.push(reportToScreen(validEvents.pop()))
+    }
 }
