@@ -1,43 +1,36 @@
-.hf {
-    background-color: aqua;
-    background: aqua;
-    min-height: 40pt;
-    margin: 0%;
-    outline: black solid 1pt;
-}
-
-.hf p {
-    margin: 0pt;
-    padding: 20pt;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* display: inline-flex; */
-}
-
-#mainContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    min-height: 75%;
-}
-
-.bodySection {
-    border: solid black 1px;
-    height: 50%;
-    padding: 10pt;
-}
-
-#eventTextSection {
-    /* float: left; */
-    width: 40%;
-}
-
 #inputSection {
-    /* float: right; */
-    width: 40%;    
+    display: inline-block;
 }
 
-#submitButton {
-    margin-top: 10pt;
+body {
+    font-size: 1.25rem;
+    /* line-height: 150%; */
+    text-align: center;
+    padding: 1%;
+}
+
+.container {
+    display: table;
+    max-height: 100%;
+    width: 75%;
+}
+
+div {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 50%;
+}
+
+span {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.left-half {}
+
+.right-half {}
+
+.halves {
+    outline: black solid 1px;
 }

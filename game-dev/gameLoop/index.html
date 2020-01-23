@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <script src="./design/main.js"></script>
-    <head>
-        <link rel="stylesheet" href="./design/main.css">
-        <title>Game Loop</title>
-    </head>
-    <body>
-        <div class="hf">
-            <p>Game Loop!</p>
-        </div>
-        <div id="mainContainer">
-            <div id="eventTextSection" class="bodySection">
+<script src="./design/main.js"></script>
+
+<head>
+    <link rel="stylesheet" href="./design/main.css">
+    <title>Game Loop</title>
+</head>
+
+<body>
+    <div>
+        <p>Game Loop!</p>
+    </div>
+    <section class="container">
+        <div class="left-half halves">
+            <article>
                 <p id="eventText"></p>
-            </div>
-            <div id="inputSection" class="bodySection">
-                <pre>Name:      </pre><input id="nameInput" type="text" name="name"><br>
-                <pre>Interval(ms)   </pre><input id="intervalInput" type="number" name="interval"><br>
-                <pre># Times    </pre><input id="timesInput" type="number" name="times"><br>
+            </article>
+        </div>
+        <div class="right-half halves">
+            <article id="inputSection">
+                <p>Name: </p><input id="nameInput" type="text" name="name"><br>
+                <p>Interval(ms) </p><input id="intervalInput" type="number" name="interval"><br>
+                <p># Times </p><input id="timesInput" type="number" name="times"><br>
                 <button id="submitButton" type="button">Add Event</button>
-            </div>
+            </article>
         </div>
-        <div class="hf">
-            <p>Created For CS5410</p>
-        </div>
-    </body>
+    </section>
+    <div>
+        <p>Created For CS5410</p>
+    </div>
+</body>
+
 </html>
