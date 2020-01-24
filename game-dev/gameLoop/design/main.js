@@ -1,13 +1,6 @@
 let events = []
 let validEvents = []
-
-document.onkeydown = function(e) {
-    e = e || window.event;
-    switch (e.which || e.keyCode) {
-        case 13: //Your Code Here (13 is ascii code for 'ENTER')
-            submitButtonPress()
-    }
-}
+let newEvents = []
 
 window.onload = function() {
 
@@ -17,6 +10,14 @@ window.onload = function() {
     }
 
     this.gameLoop(this.performance.now())
+}
+
+document.onkeydown = function(e) {
+    e = e || window.event;
+    switch (e.which || e.keyCode) {
+        case 13: //Your Code Here (13 is ascii code for 'ENTER')
+            submitButtonPress()
+    }
 }
 
 function reportToNode(event) {
@@ -55,30 +56,31 @@ function submitButtonPress() {
     timesNode.value = null
 
     // === Create an Event Object === //
-    if (nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) {
-        let event = {
+    if (nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) { // if everything is all set correctly in the inputs
+        let event = { // this is the event object
             "nextCall": 0,
             "name": name,
             "interval": interval,
-            "times": times
+            "times": times,
+            "stringify": function() {
+                return ("(" + this.name + ", " + this.times + ") => ")
+            }
         }
-        this.reportToNode(event)
-        event.nextCall = (event.interval + performance.now())
-        console.log("createdEvent:", event)
-        events.push(event)
-    } else {
+        event = this.reportToNode(event) // print the node immediately
+        event.nextCall = (event.interval + performance.now()) // set when the event should be printed next
+        newEvents.push(event) // push the event to where events will have it placed
+    } else { // if something is wrong with the input
         this.alert("Something was wrong with your input")
     }
 }
 
 function reportToScreen(event) {
-    event = reportToNode(event)
-    event.nextCall = event.nextCall + event.interval
+    event = reportToNode(event) // returns an updated node after printint it to screen
+    event.nextCall = (event.nextCall + event.interval) // set the next time it should print
     return event
 }
 
 function gameLoop(elapsedTime) {
-    // console.log(elapsedTime)
     processInput(elapsedTime)
     update(elapsedTime)
     render()
@@ -86,27 +88,35 @@ function gameLoop(elapsedTime) {
     requestAnimationFrame(gameLoop)
 }
 
-function processInput(elapsedTime) {
-
-}
+function processInput(elapsedTime) {}
 
 function update(elapsedTime) {
+
+    while (newEvents.length > 0) {
+        let newEvent = newEvents.pop()
+        events.push(newEvent)
+    }
+
+    // for each event in the eventArray
     for (let i = 0; i < events.length; i++) {
-        const event = events[i]
-        if (event.times > 0) {
-            if (elapsedTime >= event.nextCall) {
-                events.pop()
-                validEvents.push(event)
+        const event = events[i] // current event
+        console.log("looking at:", event.stringify())
+        if (event.times > 0) { // if there aren't times left, kill it
+            if (elapsedTime >= event.nextCall) { // if it is time to print it
+                events.pop() // remove that event 
+                validEvents.push(event) // push the event onto the new events
             }
-        } else {
+        } else { // remove the event from the array, 0 times remaining
             events.pop()
         }
     }
-
 }
 
 function render() {
+    // === for each valid event, report it and then push it onto events === //
     while (validEvents.length > 0) {
-        events.push(reportToScreen(validEvents.pop()))
+        let validEvent = validEvents.pop()
+        let event = reportToScreen(validEvent)
+        events.push(event)
     }
 }
