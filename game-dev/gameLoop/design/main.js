@@ -20,6 +20,10 @@ document.onkeydown = function(e) {
     }
 }
 
+/**
+ * 
+ * @param {prints the data to the node} event 
+ */
 function reportToNode(event) {
     // === decrement the event before writing === //
     event.times--;
@@ -39,6 +43,10 @@ function reportToNode(event) {
     return event
 }
 
+/**
+ * On the submit button being pressed, this 
+ * gets pushed into the newEvents array 
+ */
 function submitButtonPress() {
     // === Nodes to Pull From === //
     let nameNode = this.document.getElementById("nameInput")
@@ -97,25 +105,26 @@ function update(elapsedTime) {
         events.push(newEvent)
     }
 
-    // for each event in the eventArray
-    for (let i = 0; i < events.length; i++) {
-        const event = events[i] // current event
-        console.log("looking at:", event.stringify())
-        if (event.times > 0) { // if there aren't times left, kill it
-            if (elapsedTime >= event.nextCall) { // if it is time to print it
-                events.pop() // remove that event 
-                validEvents.push(event) // push the event onto the new events
+    const oldEvents = events
+    oldEvents.forEach((event, index) => {
+        if (event.times > 0) {
+            if (elapsedTime >= event.nextCall) {
+                events.pop()
+                console.log("valid event", event)
+                validEvents.push(event)
             }
-        } else { // remove the event from the array, 0 times remaining
+        } else {
             events.pop()
         }
-    }
+    })
+
 }
 
 function render() {
     // === for each valid event, report it and then push it onto events === //
     while (validEvents.length > 0) {
         let validEvent = validEvents.pop()
+        console.log("valid event", validEvent)
         let event = reportToScreen(validEvent)
         events.push(event)
     }
