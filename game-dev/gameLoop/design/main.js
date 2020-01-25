@@ -60,15 +60,15 @@ function submitButtonPress() {
     // === Create an Event Object === //
     if (nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) { // if everything is all set correctly in the inputs
         let event = {
-            "nextCall": 0,
-            "name": name,
-            "interval": interval,
-            "times": times,
-            "stringify": function() {
-                return ("(" + this.name + ", " + this.times + ") => ")
+                "nextCall": 0,
+                "name": name,
+                "interval": interval,
+                "times": times,
+                "stringify": function() {
+                    return ("(" + this.name + ", " + this.times + ") => ")
+                }
             }
-        }
-        event.nextCall = (event.interval + performance.now())
+            // event.nextCall = (event.interval + performance.now())
         event = reportToNode(event)
         newEvents.push(event)
     } else { // if something is wrong with the input
@@ -115,6 +115,7 @@ function update(elapsedTime) {
         let event = temps[i] // get the current event
         if (event.times > 0) { // make sure that it should be valid
             if (elapsedTime > event.nextCall) { // should be printed
+
                 valids.push(event) // pushed into valid
             } else {
                 events.push(event)
