@@ -22,10 +22,6 @@ document.onkeydown = function(e) {
 }
 
 function reportToNode(event) {
-    // === change event before printing it === //
-    event = decrementTimesLeft(event)
-    event = updateTime(event)
-
     // === Generate the individual nodes === //
     let singleEventNode = document.createElement("div")
     let eventText = document.createTextNode("Event: " + event.name + " (" + event.times + " remaining)")
@@ -60,9 +56,10 @@ function submitButtonPress() {
     // === Create an Event Object === //
     if (nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) { // if everything is all set correctly in the inputs
         let event = {
-                "nextCall": 0,
                 "name": name,
                 "interval": interval,
+                // "nextCall": 0,
+                nextCall: (interval + performance.now()),
                 "times": times,
                 "stringify": function() {
                     return ("(" + this.name + ", " + this.times + ") => ")
@@ -115,7 +112,8 @@ function update(elapsedTime) {
         let event = temps[i] // get the current event
         if (event.times > 0) { // make sure that it should be valid
             if (elapsedTime > event.nextCall) { // should be printed
-
+                event = decrementTimesLeft(event)
+                event = updateTime(event)
                 valids.push(event) // pushed into valid
             } else {
                 events.push(event)
