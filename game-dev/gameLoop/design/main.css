@@ -1,0 +1,72 @@
+div {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+article {
+    height: 250px;
+}
+
+article p {
+    font-size: 10rem;
+}
+
+body {
+    width: 800px;
+    text-align: center;
+}
+
+label {
+    font-size: 1.25rem;
+}
+
+.container {
+    display: table;
+    height: 200px;
+    width: inherit;
+}
+
+.left-half {}
+
+.right-half {
+    align-items: flex-start;
+    justify-content: center
+}
+
+.halves {
+    outline: black solid 1px;
+    width: 50%;
+}
+
+.hf {
+    width: inherit;
+    background-color: lightcoral;
+    outline: black solid 1px;
+}
+
+.h {
+    font-size: 2rem;
+    /* font-size: 20px; */
+}
+
+.f {
+    font-size: 1.25rem;
+}
+
+#inputSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    margin: 20px
+}
+
+#eventArticle {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    font-size: 1.2rem;
+}
