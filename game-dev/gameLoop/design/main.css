@@ -2,26 +2,25 @@ div {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-}
-
-span {
-    display: flex;
-    flex-flow: row wrap;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 article {
     height: 250px;
-    padding: 0px;
+}
+
+article p {
+    font-size: 10rem;
 }
 
 body {
-    font-size: 1.25rem;
     width: 800px;
     text-align: center;
 }
 
-#inputSection {
-    display: inline-block;
+label {
+    font-size: 1.25rem;
 }
 
 .container {
@@ -30,15 +29,12 @@ body {
     width: inherit;
 }
 
-#eventArticle {
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-}
-
 .left-half {}
 
-.right-half {}
+.right-half {
+    align-items: flex-start;
+    justify-content: center
+}
 
 .halves {
     outline: black solid 1px;
@@ -48,4 +44,29 @@ body {
 .hf {
     width: inherit;
     background-color: lightcoral;
+    outline: black solid 1px;
+}
+
+.h {
+    font-size: 2rem;
+    /* font-size: 20px; */
+}
+
+.f {
+    font-size: 1.25rem;
+}
+
+#inputSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    margin: 20px
+}
+
+#eventArticle {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    font-size: 1.2rem;
 }
