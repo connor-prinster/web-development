@@ -1,9 +1,9 @@
 let events = []
-let validEvents = []
+let valids = []
 let newEvents = []
 
 window.onload = function() {
-
+    // === get the submit button from the document === //
     let submitButton = this.document.getElementById("submitButton")
     submitButton.onclick = () => {
         this.submitButtonPress()
@@ -13,6 +13,7 @@ window.onload = function() {
 }
 
 document.onkeydown = function(e) {
+    // === submit on enter === //
     e = e || window.event;
     switch (e.which || e.keyCode) {
         case 13: //Your Code Here (13 is ascii code for 'ENTER')
@@ -20,13 +21,10 @@ document.onkeydown = function(e) {
     }
 }
 
-/**
- * 
- * @param {prints the data to the node} event 
- */
 function reportToNode(event) {
-    // === decrement the event before writing === //
-    event.times--;
+    // === change event before printing it === //
+    event = decrementTimesLeft(event)
+    event = updateTime(event)
 
     // === Generate the individual nodes === //
     let singleEventNode = document.createElement("div")
@@ -43,10 +41,6 @@ function reportToNode(event) {
     return event
 }
 
-/**
- * On the submit button being pressed, this 
- * gets pushed into the newEvents array 
- */
 function submitButtonPress() {
     // === Nodes to Pull From === //
     let nameNode = this.document.getElementById("nameInput")
@@ -65,7 +59,7 @@ function submitButtonPress() {
 
     // === Create an Event Object === //
     if (nameNode != "" && !this.isNaN(interval) && !this.isNaN(times)) { // if everything is all set correctly in the inputs
-        let event = { // this is the event object
+        let event = {
             "nextCall": 0,
             "name": name,
             "interval": interval,
@@ -74,21 +68,28 @@ function submitButtonPress() {
                 return ("(" + this.name + ", " + this.times + ") => ")
             }
         }
-        event = this.reportToNode(event) // print the node immediately
-        event.nextCall = (event.interval + performance.now()) // set when the event should be printed next
-        newEvents.push(event) // push the event to where events will have it placed
+        event.nextCall = (event.interval + performance.now())
+        event = reportToNode(event)
+        newEvents.push(event)
     } else { // if something is wrong with the input
         this.alert("Something was wrong with your input")
     }
 }
 
-function reportToScreen(event) {
-    event = reportToNode(event) // returns an updated node after printint it to screen
+function decrementTimesLeft(event) {
+    // === decrement times to print === //
+    event.times = event.times - 1
+    return event
+}
+
+function updateTime(event) {
+    // === update the number of calls left === //
     event.nextCall = (event.nextCall + event.interval) // set the next time it should print
     return event
 }
 
 function gameLoop(elapsedTime) {
+    // === actually run the loop === //
     processInput(elapsedTime)
     update(elapsedTime)
     render()
@@ -96,36 +97,37 @@ function gameLoop(elapsedTime) {
     requestAnimationFrame(gameLoop)
 }
 
-function processInput(elapsedTime) {}
+function processInput(elapsedTime) {
+
+}
 
 function update(elapsedTime) {
-
+    // === get all the events that need to be found === //
     while (newEvents.length > 0) {
         let newEvent = newEvents.pop()
         events.push(newEvent)
     }
 
-    const oldEvents = events
-    oldEvents.forEach((event, index) => {
-        if (event.times > 0) {
-            if (elapsedTime >= event.nextCall) {
-                events.pop()
-                console.log("valid event", event)
-                validEvents.push(event)
+    let temps = events
+    events = []
+        // go through the entire list of events
+    for (let i = 0; i < temps.length; i++) {
+        let event = temps[i] // get the current event
+        if (event.times > 0) { // make sure that it should be valid
+            if (elapsedTime > event.nextCall) { // should be printed
+                valids.push(event) // pushed into valid
+            } else {
+                events.push(event)
             }
-        } else {
-            events.pop()
         }
-    })
-
+    }
 }
 
 function render() {
-    // === for each valid event, report it and then push it onto events === //
-    while (validEvents.length > 0) {
-        let validEvent = validEvents.pop()
-        console.log("valid event", validEvent)
-        let event = reportToScreen(validEvent)
+    // === print all values that need to be printed === //
+    while (valids.length > 0) {
+        let valid = valids.pop()
+        let event = reportToNode(valid)
         events.push(event)
     }
 }
