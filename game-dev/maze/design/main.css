@@ -1,0 +1,121 @@
+#canvas-container {
+    width: fit-content;
+    height: fit-content;
+    padding: 0%;
+    margin: 0%;
+    display: flex;
+    flex-grow: 3;
+}
+
+#headerVals {
+    display: flex;
+    flex-direction: row;
+}
+
+#game-screen {
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+
+#win-screen {
+    display: none;
+    flex-direction: row;
+}
+
+#credits-screen {
+    display: none;
+    flex-direction: row;
+    color: white;
+    font-size: 3em;
+}
+
+#credit-text-box {
+    display: flex;
+    margin: 10%;
+    width: max-content;
+}
+
+#highest-scores {
+    background-color: gray;
+    outline: 2px solid #42CAFD;
+    /* align-items: center;
+    justify-content: center; */
+}
+
+.highscore-text{
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+    color: white;
+}
+
+#headerVals {
+    color: greenyellow;
+    font-family: fantasy, Helvetica, sans-serif;
+    font-size: 1.1em;
+}
+
+#win-screen .active {
+    display: block;
+}
+
+#win-image {
+    width: 50%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.sidebar.center {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 3;
+}
+
+.left {
+    align-items: flex-end;
+}
+
+.right {
+    align-items: flex-start;
+}
+
+.dificulty-buttons {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    width: 150px;
+    cursor: pointer;
+}
+
+.other-buttons {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    width: 150px;
+    cursor: pointer;
+}
+
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
