@@ -20,65 +20,67 @@
 </head>
 
 <body>
-    <div id='headerVals'>
-        <p id="header-text"></p>
-    </div>
-    <div id="win-screen">
-        <div class="sidebar left won">
-            <button class="easyBtn dificulty-buttons"></button>
-            <button class="mediumBtn dificulty-buttons"></button>
-            <button class="hardBtn dificulty-buttons"></button>
-            <button class="insaneBtn dificulty-buttons"></button>
+    <div id="full-holder">
+        <div id="win-screen">
+            <div class="sidebar left won">
+                <button class="easyBtn dificulty-buttons"></button>
+                <button class="mediumBtn dificulty-buttons"></button>
+                <button class="hardBtn dificulty-buttons"></button>
+                <button class="insaneBtn dificulty-buttons"></button>
+            </div>
+            <img id="win-image" src="./design/images/second_death_star_explosion.jpg" alt="second death star explosion">
+            <div class="sidebar right">
+                <button class="highScoreBtn other-buttons"></button>
+                <button class="creditBtn other-buttons"></button>
+            </div>
         </div>
-        <img id="win-image" src="./design/images/second_death_star_explosion.jpg" alt="second death star explosion">
-        <div class="sidebar right">
-            <button class="highScoreBtn other-buttons"></button>
-            <button class="creditBtn other-buttons"></button>
-        </div>
-    </div>
 
-    <div id='game-screen'>
-        <div class="sidebar left">
-            <button class="easyBtn dificulty-buttons"></button>
-            <button class="mediumBtn dificulty-buttons"></button>
-            <button class="hardBtn dificulty-buttons"></button>
-            <button class="insaneBtn dificulty-buttons"></button>
+        <div id='game-screen'>
+            <div class="sidebar left">
+                <button class="easyBtn dificulty-buttons"></button>
+                <button class="mediumBtn dificulty-buttons"></button>
+                <button class="hardBtn dificulty-buttons"></button>
+                <button class="insaneBtn dificulty-buttons"></button>
+            </div>
+            <canvas id="canvas-container" width="1024" height="1024" style="width: 50%; height: 50%"></canvas>
+            <div class="sidebar right">
+                <button class="highScoreBtn other-buttons"></button>
+                <button class="creditBtn other-buttons"></button>
+                <div id='headerVals'>
+                    <p id="header-text"></p>
+                </div>
+            </div>
         </div>
-        <canvas id="canvas-container" width="1024" height="1024" style="width: 50%; height: 50%"></canvas>
-        <div class="sidebar right">
-            <button class="highScoreBtn other-buttons"></button>
-            <button class="creditBtn other-buttons"></button>
+        <div id='credits-screen'>
+            <div class="sidebar left">
+                <button class="easyBtn dificulty-buttons"></button>
+                <button class="mediumBtn dificulty-buttons"></button>
+                <button class="hardBtn dificulty-buttons"></button>
+                <button class="insaneBtn dificulty-buttons"></button>
+            </div>
+            <div id='credit-text-box'>
+                <p>Created by Connor Prinster</p>
+            </div>
+            <div class="sidebar right">
+                <button class="highScoreBtn other-buttons"></button>
+                <button class="creditBtn other-buttons"></button>
+            </div>
         </div>
-    </div>
-    <div id='credits-screen'>
-        <div class="sidebar left">
-            <button class="easyBtn dificulty-buttons"></button>
-            <button class="mediumBtn dificulty-buttons"></button>
-            <button class="hardBtn dificulty-buttons"></button>
-            <button class="insaneBtn dificulty-buttons"></button>
-        </div>
-        <div id='credit-text-box'>
-            <p>Created by Connor Prinster</p>
-        </div>
-        <div class="sidebar right">
-            <button class="highScoreBtn other-buttons"></button>
-            <button class="creditBtn other-buttons"></button>
-        </div>
-    </div>
-    <div id='highscore-screen'>
-        <div class="sidebar left">
-            <button class="easyBtn dificulty-buttons"></button>
-            <button class="mediumBtn dificulty-buttons"></button>
-            <button class="hardBtn dificulty-buttons"></button>
-            <button class="insaneBtn dificulty-buttons"></button>
-        </div>
-        <div id='high-scores' class="sidebar center">
-            <div id="highest-scores" class="highscore-text"></div>
-            <div id='highscore-text-box' class="highscore-text"></div>
-        </div>
-        <div class="sidebar right">
-            <button class="highScoreBtn other-buttons"></button>
-            <button class="creditBtn other-buttons"></button>
+        <div id='highscore-screen'>
+            <div class="sidebar left">
+                <button class="easyBtn dificulty-buttons"></button>
+                <button class="mediumBtn dificulty-buttons"></button>
+                <button class="hardBtn dificulty-buttons"></button>
+                <button class="insaneBtn dificulty-buttons"></button>
+            </div>
+            <div id='high-scores' class="sidebar center">
+                <div id="highest-scores" class="highscore-text"></div>
+                <div id='highscore-text-box' class="highscore-text"></div>
+            </div>
+            <div class="sidebar right">
+                <button class="highScoreBtn other-buttons"></button>
+                <button class="creditBtn other-buttons"></button>
+            </div>
         </div>
     </div>
 </body>

@@ -99,6 +99,7 @@ class Highscores {
 
         let highScoreText = document.createElement('p')
         highScoreText.classList.add('highscore-text')
+        highScoreText.classList.add('highscore-hm')
         highScoreText.innerHTML = "Highest Scores"
         highests.appendChild(highScoreText)
         
@@ -113,8 +114,15 @@ class Highscores {
 
     reportToNode() {
         let htmlNode = document.getElementById('highscore-text-box');
+        htmlNode.innerHTML = ''
         this.generateHighestScoresDiv(this.highscores)
         
+        let highscoreHeader = document.createElement("div"); 
+        highscoreHeader.classList.add('highscore-hm')
+        highscoreHeader.style.whiteSpace = 'pre-wrap'
+        highscoreHeader.innerHTML = "Honorable Mentions:"
+        htmlNode.appendChild(highscoreHeader) 
+
         for (let key in this.highscores) {
             let highscore = JSON.parse(this.highscores[key])
             let div = document.createElement("div"); 

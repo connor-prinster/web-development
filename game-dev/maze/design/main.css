@@ -8,6 +8,7 @@
 }
 
 #headerVals {
+    margin-left: 15px;
     display: flex;
     flex-direction: row;
 }
@@ -39,11 +40,13 @@
 #highest-scores {
     background-color: gray;
     outline: 2px solid #42CAFD;
-    /* align-items: center;
-    justify-content: center; */
 }
 
-.highscore-text{
+.highscore-hm {
+    font-style: italic;
+}
+
+.highscore-text {
     display: flex;
     flex-direction: column;
     margin: 5%;
@@ -112,10 +115,19 @@
     cursor: pointer;
 }
 
-body {
-    background-color: black;
+#full-holder {
     display: flex;
     flex-direction: column;
+    flex-shrink: 1;
     justify-content: center;
     align-items: center;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    background-color: black;
 }
