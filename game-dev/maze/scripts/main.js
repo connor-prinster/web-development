@@ -365,6 +365,7 @@ function initialize(difficulty, shouldUpDateWinScreen) {
     // === Objects Based on Difficulties === //
     setDifficultyConstants(difficulty)
     setDeathStarEnd()
+    clearBreadcrumbs()
 
     setGameScreenActive()
 
@@ -375,6 +376,10 @@ function initialize(difficulty, shouldUpDateWinScreen) {
     // === Get Maze === //
     this.genMaze(difficulty)
 } 
+
+function clearBreadcrumbs() {
+    breadCrumbs = []
+}
 
 function htmlAttachments() {
     // === Get Canvas Elements === //
