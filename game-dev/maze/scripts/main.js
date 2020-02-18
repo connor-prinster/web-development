@@ -36,7 +36,7 @@ const targetLockPath = hintBasePath + 'target_lock.png'
 // --- Background --- //
 const endorPath = imageBasePath + 'endor_space.jpg'
 // -- Audio --- //
-const landoYellPath = audioBasePath + 'lando_yell.mp3'
+const landoYellPath = './design/audio/lando_yell.ogg'
 
 // === Constants === //
 let constants = {
