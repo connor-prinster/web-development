@@ -3,31 +3,30 @@ let context = null
 let prevTime = performance.now();
 let inputBuffer = {}
 
-function printFps(elapsedTime) {
-    let fps = 1000 / elapsedTime
-    console.log("fps:", fps)
+const keyBindings = {
+    rotateLeft: "ArrowLeft",
+    rotateRight: "ArrowRight",
+    thrust: "ArrowUp"
 }
 
+// initialize
+const constants = new Constants()
+let lander = null
+
 function gameLoop(time) {
-    let elapsedTime = time - prevTime;
     prevTime = time;
+    processInput(time);
+    update(time);
+    render(time);
 
-    processInput(time)
-    update(time)
-    render(time)
-
-    requestAnimationFrame(gameLoop)
+    requestAnimationFrame(gameLoop);
 }
 
 function processInput(time) {
-    // check if the character has moved
     for (input in inputBuffer) {
-        let key = inputBuffer[input]
-        moveCharacters(key)
-        toggleHelps(key)
-
+        let key = inputBuffer[input];
     }
-    inputBuffer = {}
+    inputBuffer = {};
 }
 
 function update(time) {
@@ -35,21 +34,35 @@ function update(time) {
 }
 
 function render(time) {
+    const draw = new Draw(context)
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+    draw.drawLander(lander)
 }
 
 function initialize() {
-    initializeHtml()
+    setListeners();
+    initializeHtml();
+    initializeLander();
 }
 
 function initializeHtml() {
-    canvas = this.document.getElementById('canvas-container')
-    context = canvas.getContext('2d')
-    context.lineWidth = 3
-    context.strokeStyle = '#05F140'
+    canvas = this.document.getElementById('canvas-container');
+    context = canvas.getContext('2d');
+}
+
+function initializeLander() {
+    let initLocation = {x: 0, y: 0}
+    lander = new Lander(constants.paths.landerPath, initLocation)
+}
+
+function setListeners() {
+    window.addEventListener('keydown', function (event) {
+        inputBuffer[event.key] = event.key;
+    });
 }
 
 window.onload = function () {
-    this.initialize()
-    this.gameLoop(this.performance.now())
+    this.initialize();
+    this.gameLoop(this.performance.now());
 }
