@@ -1,17 +1,63 @@
 <!DOCTYPE html>
 <html>
 
-<script src="./scripts/main.js"></script>
-
 <head>
     <link rel="stylesheet" href="./design/main.css">
     <title>Lunar Lander</title>
 </head>
 
-<body>
-    <div>
-        <canvas id="canvas-container" width="1024" height="1024" style="width: 50%; height: 50%"></canvas>
+<body onload="LanderGame.game.initialize()">
+    <div id="main-menu" class="screen">
+        <div id="main-menu-screen">
+            <div id="mainButtons">
+                <button id="newGameBtn">New Game</button>
+                <button id="highScoresBtn">High Scores</button>
+                <button id="customizeControlsBtn">Customize Controls</button>
+                <button id="creditsBtn">Credits</button>
+            </div>
+        </div>
+    </div>
+    <div id="game-play" class="screen">
+        <div id="game-play-screen">
+            <p>Game screen</p>
+            <button class="back-button">Back to Main Menu</button>
+            <canvas id="canvas-container" width="1024" height="1024" style="width: 50%; height: 50%"></canvas>
+        </div>
+    </div>
+    <div id="highscores" class="screen">
+        <p>High Scores</p>
+        <button class="back-button">Back to Main Menu</button>
+    </div>
+    <div id="customize-controls" class="screen">
+        <p>customize Controls</p>
+        <button class="back-button">Back to Main Menu</button>
+    </div>
+    <div id="credits" class="screen">
+        <p>Created by Connor Prinster</p>
+        <button class="back-button">Back to Main Menu</button>
     </div>
 </body>
+
+<!-- Navigation -->
+<script>
+    let LanderGame = {
+        screens: {},
+        input: {},
+        objects: {},
+        render: []
+    }
+</script>
+<script src="./scripts/game.js"></script>
+<script src="./scripts/htmlAttach/htmlAttach.js"></script>
+<!-- required objects and such -->
+<script src="./scripts/constants/constants.js"></script>
+<script src="./scripts/draw/draw.js"></script>
+<script src="./scripts/lander/lander.js"></script>
+<!-- pages -->
+<script src="./scripts/pages/mainMenu.js"></script>
+<script src="./scripts/pages/gamePlay.js"></script>
+<script src="./scripts/pages/highscores.js"></script>
+<script src="./scripts/pages/customizeControls.js"></script>
+<script src="./scripts/pages/credits.js"></script>
 
 </html>
