@@ -21,10 +21,6 @@ var app = new Vue({
     changeStates: function(text, event) {
       var currentClass = event.target.parentNode.className;
       var newClass = "";
-      // console.log(currentClass)
-      // console.log(event.target.parentNode);
-      // event.target.parentNode.className = "likely"
-      // console.log(status);
       if(currentClass == "default") {
         if(this.defaulty > 0) {
           this.defaulty--;
@@ -124,8 +120,6 @@ var app = new Vue({
       })
       .then(response => response.json())
       .then(json => {
-        // console.log("Current Forecast:");
-        // console.log(json);
         current = json;
         var date = new Date(current.dt * 1000);
         var time =
