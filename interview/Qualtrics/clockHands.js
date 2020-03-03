@@ -3,13 +3,6 @@
 // number of hours and number of minutes.
 // E.g. For 3:00, the acute angle would be 90°. For 6:00, it would be 180°.
 
-function main() {
-    const arr = ["3:00", "6:00", "6:45"]
-    for(let idx in arr) {
-        acuteAngle(arr[idx])
-    }
-}
-
 function acuteAngle(input) {
     const hands = input.split(':')
     const hour = hands[0]
