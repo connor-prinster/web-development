@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<script src="./main.js"></script>
+
+<head>
+    <link rel="stylesheet" href="./main.css">
+    <title>Social Choice</title>
+</head>
+
+<body>
+    <div id="tableData">
+
+    </div>
+    <button id='initOne'>Fill Dataset 1 Values</button>
+    <button id='initTwo'>Fill Dataset 2 Values</button>
+    <button id="initRandom">Fill Random Dataset</button>
+    <button id="votingButton">Run All Voting Simulations</button>
+
+
+    <div class="addCustom">
+        <button id='addRow'>Add Row</button>
+        <input id='candidateName' placeholder="Name">
+    </div>
+    <div class="addCustom">
+        <button id="addColumn">Add Column</button>
+        <input id="voterName" placeholder="Voter Name">
+        <input id="voteOccurs" type="number" placeholder="Occurs">
+    </div>
+    <div class="addCustom">
+        <button id="rowColCountBtn">Set Table Size</button>
+        <input id="rows" placeholder="Row Count">
+        <input id="cols" placeholder="Column Count">
+    </div>
+    <div class="addCustom">
+        <button id="glRule">Set Preference Rule</button>
+        <input id="greater" placeholder="Greater Value">
+        <input id="lesser" placeholder="Leser Value">
+    </div>
+    <div class="addCustom">
+        <button id="singlePeaked">Make Single Peaked</button>
+    </div>
+    <div class="addCustom">
+        <div id="majorityGraph" class="tables"></div>
+        <div id="votingResults" class="tables"></div>
+    </div>
+</body>
+
+</html>
