@@ -137,15 +137,15 @@ function advantageCase() {
         generateVote('A', 5),
         generateVote('B', 4),
         generateVote('C', 3),
-        generateVote('D', 6),
-        generateVote('E', 8)
+        generateVote('D', 3),
+        // generateVote('E', 8)
     ]
     preloadedValues = [
-        [1, 5, 2, 3, 1],
-        [2, 3, 4, 5, 3],
-        [3, 2, 5, 2, 2],
-        [4, 1, 3, 1, 5],
-        [5, 4, 1, 4, 4]
+        [1, 5, 2, 5],
+        [2, 4, 4, 2],
+        [3, 2, 5, 1],
+        [4, 3, 3, 3],
+        [5, 1, 1, 4]
     ]
 
     generateTable()
