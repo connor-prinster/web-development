@@ -30,6 +30,11 @@ function initialize() {
         generateResultTables()
     }
 
+    const advantageButton = document.getElementById('advantageButton')
+    advantageButton.onclick = function() {
+        advantageCase()
+    }
+
     const addRow = document.getElementById('addRow')
     addRow.onclick = function () {
         const newCandidateElement = document.getElementById('candidateName')
@@ -102,6 +107,28 @@ function dataset1() {
 
 function dataset2() {
     dataset = "Dataset 2"
+
+    names = [
+        'Alex', 'Bart', 'Cindy', 'David'
+    ]
+    votes = [
+        generateVote('A', 5),
+        generateVote('B', 4),
+        generateVote('C', 3),
+        generateVote('D', 6)
+    ]
+    preloadedValues = [
+        [2, 1, 2, 4],
+        [3, 3, 3, 1],
+        [1, 4, 4, 2],
+        [4, 2, 1, 3]
+    ]
+
+    generateTable()
+}
+
+function advantageCase() {
+    dataset = "Random Case"
 
     names = [
         'Alex', 'Bart', 'Cindy', 'David'
