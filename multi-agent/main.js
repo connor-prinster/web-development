@@ -30,6 +30,11 @@ function initialize() {
         generateResultTables()
     }
 
+    const advantageButton = document.getElementById('advantageButton')
+    advantageButton.onclick = function() {
+        advantageCase()
+    }
+
     const addRow = document.getElementById('addRow')
     addRow.onclick = function () {
         const newCandidateElement = document.getElementById('candidateName')
@@ -101,7 +106,7 @@ function dataset1() {
 }
 
 function dataset2() {
-    dataset = "Dataset 2"
+    dataset = "Dataset 2!"
 
     names = [
         'Alex', 'Bart', 'Cindy', 'David'
@@ -122,6 +127,30 @@ function dataset2() {
     generateTable()
 }
 
+function advantageCase() {
+    dataset = "Advantage Case!"
+
+    names = [
+        'Alex', 'Bart', 'Cindy', 'David', 'Erik'
+    ]
+    votes = [
+        generateVote('A', 5),
+        generateVote('B', 4),
+        generateVote('C', 3),
+        generateVote('D', 3),
+        // generateVote('E', 8)
+    ]
+    preloadedValues = [
+        [1, 5, 2, 5],
+        [2, 4, 4, 2],
+        [3, 2, 5, 1],
+        [4, 3, 3, 3],
+        [5, 1, 1, 4]
+    ]
+
+    generateTable()
+}
+
 function setLength() {
     const columns = document.getElementById('cols')
     const rows = document.getElementById('rows')
@@ -131,6 +160,7 @@ function setLength() {
     columns.value = ""
     rows.value = ""
 
+    dataset = "Custom Size"
     if (rowCount && columnCount) {
         names = [
             'Alex', 'Bart', 'Cindy', 'David', 'Erik', 'Frank', 'Greg'
@@ -159,6 +189,7 @@ function setLength() {
 }
 
 function randomDataSet() {
+    dataset = "Random Case"
     names = []
     votes = []
     preloadedValues = []
@@ -891,7 +922,7 @@ function generateVotingResultTableBody(bucklin, stv, copeland) {
         row.append(generateTableCell(i + 1)) // rank
         row.append(generateBucklinCell(bucklin[i]))
         row.append(generateTableCell(stv[i]))
-        if(i == 1 && dataset == "Dataset 2") {
+        if(i == 1 && (dataset == "Dataset 2!")) {
             row.append(generateTableCell("Bart"))
         }
         else {
