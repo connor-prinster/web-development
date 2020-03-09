@@ -1,3 +1,8 @@
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .nameCell {
     width: 60px;
     height: 35px;
@@ -32,13 +37,26 @@
     height: 35px;
 }
 
+.tables {
+    margin: 20px
+}
+
+table,
+tr {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table {
+    border-spacing: 15px;
+}
+
 .row {
     display: flex;
     flex-direction: row;
 }
 
-
-.addCustom{
+.addCustom {
     display: flex;
     flex-direction: row;
 }

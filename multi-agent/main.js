@@ -21,13 +21,13 @@ function initialize() {
     }
 
     const initRandom = document.getElementById('initRandom')
-    initRandom.onclick = function() {
+    initRandom.onclick = function () {
         randomDataSet()
     }
 
-    const majorityBtn = document.getElementById('majorityBtn') 
-    majorityBtn.onclick = function() {
-        const majorityGraph  = generateMajorityGraph().majorityGraph
+    const runAllVotes = document.getElementById('votingButton')
+    runAllVotes.onclick = function () {
+        generateResultTables()
     }
 
     const addRow = document.getElementById('addRow')
@@ -43,13 +43,13 @@ function initialize() {
     }
 
     const addColumn = document.getElementById('addColumn')
-    addColumn.onclick = function() {
+    addColumn.onclick = function () {
         const voterNameElement = document.getElementById('voterName')
         const voteOccuranceElement = document.getElementById('voteOccurs')
 
         const voterName = voterNameElement.value
         const voteOccurance = voteOccuranceElement.value
-        if(voterName && voteOccurance && voterValid(voterName)) {
+        if (voterName && voteOccurance && voterValid(voterName)) {
             generateColumn(voterName, voteOccurance)
             voterNameElement.value = ""
             voteOccuranceElement.value = ""
@@ -57,25 +57,20 @@ function initialize() {
     }
 
     const rowColCountBtn = document.getElementById('rowColCountBtn')
-    rowColCountBtn.onclick = function() {
+    rowColCountBtn.onclick = function () {
         setLength()
     }
 
     const setRule = document.getElementById('glRule')
-    setRule.onclick = function() {
+    setRule.onclick = function () {
         greaterThanRule()
     }
 
-    const votingButton = document.getElementById('votingButton')
-    votingButton.onclick = function() {
-        const bucklinData = bucklin()
-        const stvData = stv()
-        const copelandData = copeland()
-        const majorityGraph  = generateMajorityGraph().majorityGraph
-
-        generateVotingResultsTable(bucklinData, stvData, copelandData)
-        generateMajorityGraphTable(majorityGraph)
+    const singlePeakedBtn = document.getElementById('singlePeaked')
+    singlePeakedBtn.onclick = function () {
+        singlePeakedRule()
     }
+
 
     dataset1()
 }
@@ -133,23 +128,25 @@ function setLength() {
 
     let columnCount = columns.value
     let rowCount = rows.value
+    columns.value = ""
+    rows.value = ""
 
-    if(rowCount && columnCount) {
+    if (rowCount && columnCount) {
         names = [
             'Alex', 'Bart', 'Cindy', 'David', 'Erik', 'Frank', 'Greg'
         ]
-        if(rowCount > names.length) {
+        if (rowCount > names.length) {
             rowCount = names.length
         }
         names.splice(rowCount)
 
         let randomVoters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-        if(columnCount > randomVoters.length) {
+        if (columnCount > randomVoters.length) {
             columnCount = randomVoters.length
         }
 
         votes = []
-        for(let i = 0; i < columnCount; i++) {
+        for (let i = 0; i < columnCount; i++) {
             const randomOccurance = generateRandomNumber(1, 10)
             votes.push(generateVote(randomVoters[i], randomOccurance))
         }
@@ -158,9 +155,6 @@ function setLength() {
         preloadedValues = generateRandomPreloadedValues()
 
         generateTable()
-    }
-    else {
-        console.log("something's missing")
     }
 }
 
@@ -175,43 +169,43 @@ function randomDataSet() {
 
     let randomVoters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     const randomVoterCount = generateRandomNumber(2, randomVoters.length)
-    for(let i = 0; i < randomVoterCount; i++) {
+    for (let i = 0; i < randomVoterCount; i++) {
         const randomOccurance = generateRandomNumber(1, 10)
         votes.push(generateVote(randomVoters[i], randomOccurance))
     }
 
     const randomTimesToSplice = generateRandomNumber(0, names.length)
-    for(let i = 0; i < randomTimesToSplice; i++) {
+    for (let i = 0; i < randomTimesToSplice; i++) {
         const randomIdx = generateRandomNumber(2, names.length)
         names.splice(randomIdx, 1)
     }
 
     preloadedValues = generateRandomPreloadedValues()
-    
+
     generateTable()
 }
 
 function generateRandomPreloadedValues() {
     let votersChoices = []
-    for(let i = 0; i < votes.length + 1; i++) {
+    for (let i = 0; i < votes.length + 1; i++) {
         let voterChoice = []
         let orderValues = []
-        for(let j = 0; j < names.length; j++) {
+        for (let j = 0; j < names.length; j++) {
             orderValues.push(j + 1)
         }
 
-        while(orderValues.length > 0) {
+        while (orderValues.length > 0) {
             let randomChoice = generateRandomNumber(0, orderValues.length - 1)
             voterChoice.push(orderValues[randomChoice])
             orderValues.splice(randomChoice, 1)
         }
         votersChoices.push(voterChoice)
     }
-    
+
     let formattedChoices = []
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         let formattedRow = []
-        for(let j = 0; j < votes.length; j++) {
+        for (let j = 0; j < votes.length; j++) {
             formattedRow.push(votersChoices[j][i])
         }
         formattedChoices.push(formattedRow)
@@ -231,6 +225,8 @@ function generateTable() {
         const row = generateStandardRow(names[i], preloadedValues[i])
         parentElement.appendChild(row)
     }
+
+    generateResultTables()
 }
 
 function generateVoteRow() {
@@ -332,7 +328,7 @@ function generateOrderCellId(candidateName, voterId) {
 }
 
 function nameValid(candidateName) {
-    if(names.includes(candidateName)) {
+    if (names.includes(candidateName)) {
         alert('Name already in use!')
         return false
     }
@@ -340,8 +336,8 @@ function nameValid(candidateName) {
 }
 
 function voterValid(voterId) {
-    for(let i = 0; i < votes.length; i++) {
-        if(votes[i].name == voterId) {
+    for (let i = 0; i < votes.length; i++) {
+        if (votes[i].name == voterId) {
             alert('Id already in use!')
             return false
         }
@@ -354,31 +350,67 @@ function greaterThanRule() {
     const lesser = document.getElementById('lesser')
     const greaterVal = greater.value
     const lesserVal = lesser.value
-    if(greaterVal && lesserVal && names.includes(greaterVal) && names.includes(lesserVal) && greater != lesser) {
+    if (greaterVal && lesserVal && names.includes(greaterVal) && names.includes(lesserVal) && greater != lesser) {
         const lesserVals = returnInputs(lesserVal)
         const greaterVals = returnInputs(greaterVal)
 
-        for(let idx in lesserVals) {
+        for (let idx in lesserVals) {
             const lesser = lesserVals[idx]
             const greater = greaterVals[idx]
-            if(lesser.value > greater.value) {
-                 const temp = lesser.value
-                 lesser.value = greater.value
-                 greater.value = temp
+            if (lesser.value < greater.value) {
+                const temp = lesser.value
+                lesser.value = greater.value
+                greater.value = temp
             }
         }
 
         greater.value = ""
         lesser.value = ""
     }
-    else {
-        console.log("Your input is wrong")
+}
+
+function singlePeakedRule() {
+    for (let i = 0; i < votes.length; i++) {
+        const vote = votes[i]
+        const voterName = vote.name
+        const peakOrder = generateSinglePeakedList()
+        for (let j = 0; j < names.length; j++) {
+            const name = names[j]
+            const inputId = (name + "-" + voterName)
+            document.getElementById(inputId).value = peakOrder.splice(0, 1)
+        }
     }
+    generateResultTables()
+}
+
+function generateSinglePeakedList() {
+    let randomPeak = generateRandomNumber(0, names.length - 1)
+    const availableNumbers = []
+    const newOrder = []
+    for (let i = 0; i < names.length; i++) {
+        availableNumbers.push(i + 1)
+        newOrder.push("")
+    }
+    newOrder[randomPeak] = 1
+    availableNumbers.splice(0, 1)
+    let rightIdx = randomPeak + 1
+    let leftIdx = randomPeak - 1
+    while (availableNumbers.length > 0) {
+        if (rightIdx < newOrder.length) {
+            newOrder[rightIdx] = availableNumbers.splice(0, 1)[0]
+            rightIdx++
+        }
+        if (leftIdx >= 0) {
+            newOrder[leftIdx] = availableNumbers.splice(0, 1)[0]
+            leftIdx--
+        }
+    }
+    return newOrder
 }
 
 function returnInputs(val) {
     const vals = []
-    for(let i = 0; i < votes.length; i++) {
+    for (let i = 0; i < votes.length; i++) {
         const selectId = generateOrderCellId(val, votes[i].name)
         const inputElem = document.getElementById(selectId)
         vals.push(inputElem)
@@ -395,24 +427,20 @@ function generateRandomNumber(min, max) {
 }
 
 // =====================================================================//
-// =====================================================================//
-// =====================================================================//
 //                              BUCKLIN                                 //
-// =====================================================================//
-// =====================================================================//
 // =====================================================================//
 
 function bucklin() {
     const potentials = bucklinHelper()
-    let highest = {votes: null, name: null, k: null}
-    for(let idx in potentials) {
+    let highest = { votes: null, name: null, k: null }
+    for (let idx in potentials) {
         const potential = potentials[idx]
-        if(highest.votes == null) {
-            highest = {votes: potential.votes, name: potential.name, k: potential.k}
+        if (highest.votes == null) {
+            highest = { votes: potential.votes, name: potential.name, k: potential.k }
         }
         else {
-            if(highest.votes < potential.votes) {
-                highest = {votes: potential.votes, name: potential.name, k: potential.k}
+            if (highest.votes < potential.votes) {
+                highest = { votes: potential.votes, name: potential.name, k: potential.k }
             }
         }
     }
@@ -428,39 +456,39 @@ function bucklinHelper() {
     let majorityReached = false
 
     let votesCounted = {}
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         votesCounted[names[i]] = 0
     }
 
-    while(k < maxK && !majorityReached) {
+    while (k < maxK && !majorityReached) {
         votesCounted = getKthChoiceVotes(k, votesCounted)
         const potentials = []
-        for(let i = 0; i < names.length; i++) {
+        for (let i = 0; i < names.length; i++) {
             const name = names[i]
             const votesAtK = votesCounted[name]
-            if(votesAtK >= majority) {
+            if (votesAtK >= majority) {
                 majorityReached = true
-                potentials.push({votes: votesAtK, name: name, k: k})
+                potentials.push({ votes: votesAtK, name: name, k: k })
             }
         }
-        if(majorityReached) {
+        if (majorityReached) {
             return potentials
         }
         k++
     }
 
-    return {name: "", k: k}
+    return { name: "", k: k }
 }
 
 function getKthChoiceVotes(k, votesCounted) {
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         const name = names[i]
-        for(let j = 0; j < votes.length; j++) {
+        for (let j = 0; j < votes.length; j++) {
             const vote = votes[j]
             const voterName = vote.name
             const id = (name + "-" + voterName)
             const inputValue = parseInt(document.getElementById(id).value)
-            if(inputValue == k) {
+            if (inputValue == k) {
                 const voterCountId = ("col-" + voterName + "-input")
                 const voterCount = parseInt(document.getElementById(voterCountId).value)
                 votesCounted[name] += voterCount
@@ -473,7 +501,7 @@ function getKthChoiceVotes(k, votesCounted) {
 
 function getNumberOfVotes() {
     let totalVotes = 0
-    for(let i = 0; i < votes.length; i++) {
+    for (let i = 0; i < votes.length; i++) {
         const id = "col-" + votes[i].name + "-input"
         const inputVal = parseInt(document.getElementById(id).value)
         totalVotes += inputVal
@@ -482,7 +510,7 @@ function getNumberOfVotes() {
 }
 
 function getMajority(totalVotes) {
-    if(totalVotes % 2 == 0) {
+    if (totalVotes % 2 == 0) {
         return ((totalVotes / 2) + 1)
     }
     else {
@@ -491,27 +519,23 @@ function getMajority(totalVotes) {
 }
 
 // =================================================================//
-// =================================================================//
-// =================================================================//
 //                              STV                                 //
-// =================================================================//
-// =================================================================//
 // =================================================================//
 function stv() {
     const nameOrder = []
     let liveNames = []
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         liveNames.push(names[i])
     }
 
     let orders = getInitHTMLOrder(liveNames)
 
-    while(liveNames.length > 1) {
+    while (liveNames.length > 1) {
         const lowestPluralityNames = findLowestPlurality(orders, liveNames)
-        for(let idx in lowestPluralityNames) {
+        for (let idx in lowestPluralityNames) {
             let lowestPluralityName = lowestPluralityNames[idx]
             orders = removeLowestPlurality(lowestPluralityName.name, liveNames, orders)
-    
+
             const idxToDelete = liveNames.indexOf(lowestPluralityName.name)
             nameOrder.push(lowestPluralityName.name)
             liveNames.splice(idxToDelete, 1)
@@ -524,25 +548,25 @@ function stv() {
 
 function getInitHTMLOrder(liveNames) {
     const voterOrders = {}
-    for(let i = 0; i < votes.length; i++) {
+    for (let i = 0; i < votes.length; i++) {
         const vote = votes[i]
         const voterName = vote.name
         const voteOrder = {}
-        for(let j = 0; j < liveNames.length; j++) {
+        for (let j = 0; j < liveNames.length; j++) {
             const name = liveNames[j]
             const id = name + "-" + voterName
             const input = document.getElementById(id)
             const inputVal = input.value
-            voteOrder[inputVal] = {name: name, count: vote.occurs}
+            voteOrder[inputVal] = { name: name, count: vote.occurs }
         }
         voterOrders[voterName] = voteOrder
     }
-    
+
     return voterOrders
 }
 
 function removeLowestPlurality(lowestName, liveNames, orders) {
-    for(let voterName in orders) {
+    for (let voterName in orders) {
         let order = orders[voterName]
         orders[voterName] = removeFromOrder(lowestName, liveNames, order)
     }
@@ -550,36 +574,36 @@ function removeLowestPlurality(lowestName, liveNames, orders) {
 }
 
 function removeFromOrder(lowestName, liveNames, order) {
-    if(order[1].name == lowestName) { // if first vote is deleted, vote transfers to next live
+    if (order[1].name == lowestName) { // if first vote is deleted, vote transfers to next live
         order[2].count += order[1].count
     }
 
     let idxToDelete = 0
-    for(let idx in order) {
+    for (let idx in order) {
         let vote = order[idx]
-        if(vote.name == lowestName)
-        idxToDelete = parseInt(idx)
+        if (vote.name == lowestName)
+            idxToDelete = parseInt(idx)
     }
 
-    if(idxToDelete == liveNames.length) {
+    if (idxToDelete == liveNames.length) {
         delete order[liveNames.length]
     }
     else {
-        for(let i = idxToDelete; i < liveNames.length; i++) {
+        for (let i = idxToDelete; i < liveNames.length; i++) {
             order[i] = order[i + 1]
         }
         delete order[liveNames.length]
     }
-    
+
     return order
 }
 
 function findLowestPlurality(orders, liveNames) {
     const firstPicks = []
-    for(let voterName in orders) {
+    for (let voterName in orders) {
         let firstPick = orders[voterName][1]
         const idx = isIncludedInPicks(firstPicks, firstPick)
-        if(idx == null) {
+        if (idx == null) {
             firstPicks.push(firstPick)
         }
         else {
@@ -587,48 +611,48 @@ function findLowestPlurality(orders, liveNames) {
         }
     }
 
-    if(firstPicks.length < liveNames.length) {
+    if (firstPicks.length < liveNames.length) {
         const notIncluded = []
-        for(let i = 0; i < liveNames.length; i++) {
+        for (let i = 0; i < liveNames.length; i++) {
             let foundInFirstPicks = false
             const liveName = liveNames[i]
-            for(let j = 0; j < firstPicks.length; j++) {
+            for (let j = 0; j < firstPicks.length; j++) {
                 const firstPick = firstPicks[j]
-                if(firstPick.name == liveName) {
+                if (firstPick.name == liveName) {
                     foundInFirstPicks = true
                 }
             }
-            if(!foundInFirstPicks) {
-                notIncluded.push({name: liveName})
+            if (!foundInFirstPicks) {
+                notIncluded.push({ name: liveName })
             }
         }
         return notIncluded
     }
 
-    let lowests = [{name: "", count: null}]
-    for(idx in firstPicks) {
+    let lowests = [{ name: "", count: null }]
+    for (idx in firstPicks) {
         let firstPick = firstPicks[idx]
         let lowest = lowests[0]
-        if(lowest.count) {
-            if(lowest.count == firstPick.count) {
-                lowests.push({name: firstPick.name, count: firstPick.count})
+        if (lowest.count) {
+            if (lowest.count == firstPick.count) {
+                lowests.push({ name: firstPick.name, count: firstPick.count })
             }
-            else if(lowest.count > firstPick.count) {
-                lowests = [{name: firstPick.name, count: firstPick.count}]
+            else if (lowest.count > firstPick.count) {
+                lowests = [{ name: firstPick.name, count: firstPick.count }]
             }
         }
         else {
-            lowests = [{name: firstPick.name, count: firstPick.count}]
+            lowests = [{ name: firstPick.name, count: firstPick.count }]
         }
     }
-    
+
     return lowests // will return candidate to be nuked
 }
 
 function isIncludedInPicks(firstPicks, firstPick) {
-    for(let i = 0; i < firstPicks.length; i++) {
+    for (let i = 0; i < firstPicks.length; i++) {
         const first = firstPicks[i]
-        if(first.name == firstPick.name) {
+        if (first.name == firstPick.name) {
             return i
         }
     }
@@ -636,24 +660,19 @@ function isIncludedInPicks(firstPicks, firstPick) {
 }
 
 // ======================================================================//
-// ======================================================================//
-// ======================================================================//
 //                              COPELAND                                 //
 // ======================================================================//
-// ======================================================================//
-// ======================================================================//
-
 function copeland() {
     const obj = generateMajorityGraph()
     const majorityGraph = obj.majorityGraph
     const whoWonTotals = obj.whoWonTotals
 
     const nameData = {}
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         nameData[names[i]] = 0
     }
-    
-    for(let nameDuo in whoWonTotals) {
+
+    for (let nameDuo in whoWonTotals) {
         const names = nameDuo.split('-')
         const leftName = names[0]
         const rightName = names[1]
@@ -662,48 +681,47 @@ function copeland() {
         let leftVal = voteCounts[leftName]
         let rightVal = voteCounts[rightName]
 
-        if(leftVal > rightVal) {
+        if (leftVal > rightVal) {
             nameData[leftName] += 1
             nameData[rightName] += 0.5
         }
-        else if(leftVal < rightVal) {
+        else if (leftVal < rightVal) {
             nameData[rightName] += 1
             nameData[leftName] += 0.5
         }
     }
 
     const secondOrderCopeland = {}
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         secondOrderCopeland[names[i]] = 0
     }
 
-    for(let name in majorityGraph) {
+    for (let name in majorityGraph) {
         const defeatedList = majorityGraph[name]
-        for(let defeatedIdx in defeatedList) {
+        for (let defeatedIdx in defeatedList) {
             const defeated = defeatedList[defeatedIdx]
             const copelandValue = nameData[defeated]
             secondOrderCopeland[name] += copelandValue
         }
     }
-    // return sortCopeland(secondOrderCopeland)
     const copelandOrder = sortCopeland(secondOrderCopeland)
     return copelandOrder
 }
 
 function sortCopeland(secondOrderValues) {
     let values = []
-    for(let name in secondOrderValues) {
+    for (let name in secondOrderValues) {
         const value = secondOrderValues[name]
         values.push(value)
     }
-    values.sort(function(a, b){return a-b})
+    values.sort(function (a, b) { return a - b })
 
-    for(let name in secondOrderValues) {
+    for (let name in secondOrderValues) {
         const secondOrderValue = secondOrderValues[name]
-        for(let j = 0; j < values.length; j++) {
+        for (let j = 0; j < values.length; j++) {
             const value = values[j]
-            if(secondOrderValue == value) {
-                values[j] = {name: name, value: secondOrderValue} 
+            if (secondOrderValue == value) {
+                values[j] = { name: name, value: secondOrderValue }
             }
         }
     }
@@ -714,51 +732,51 @@ function sortCopeland(secondOrderValues) {
 
 function whoWinsPerVoter() {
     const liveNames = []
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         liveNames.push(names[i])
     }
 
     const comparisonsToMake = []
     const comparedNames = []
-    for(let i = 0; i < liveNames.length; i++) {
+    for (let i = 0; i < liveNames.length; i++) {
         const leftName = liveNames[i]
-        for(let j = 0; j < liveNames.length; j++) {
+        for (let j = 0; j < liveNames.length; j++) {
             const rightName = liveNames[j]
-            if(!comparedNames.includes(rightName) && (leftName != rightName)) {
-                comparisonsToMake.push({left: leftName, right: rightName})
+            if (!comparedNames.includes(rightName) && (leftName != rightName)) {
+                comparisonsToMake.push({ left: leftName, right: rightName })
             }
         }
         comparedNames.push(leftName)
     }
 
     const majorityGraph = {}
-    for(let i in votes) {
+    for (let i in votes) {
         const voterName = votes[i].name
         majorityGraph[voterName] = {}
     }
 
-    for(let i in votes) {
+    for (let i in votes) {
         const voterName = votes[i].name
-        for(let i = 0; i < liveNames.length; i++) {
-            majorityGraph[voterName][liveNames[i]] = {array: [], counts: 0}
+        for (let i = 0; i < liveNames.length; i++) {
+            majorityGraph[voterName][liveNames[i]] = { array: [], counts: 0 }
         }
     }
 
     const whoWon = {}
-    for(let i in votes) {
+    for (let i in votes) {
         whoWon[votes[i].name] = {}
     }
-    
+
     const order = getInitHTMLOrder(liveNames)
-    for(let voterName in order) {
+    for (let voterName in order) {
         const voteOrder = order[voterName]
-        for(let i = 0; i < comparisonsToMake.length; i++) {
+        for (let i = 0; i < comparisonsToMake.length; i++) {
             const comparison = comparisonsToMake[i]
             const leftName = comparison.left
             const rightName = comparison.right
             const leftIdx = findIndexOfName(leftName, voteOrder)
             const rightIdx = findIndexOfName(rightName, voteOrder)
-            if(leftIdx < rightIdx) { // leftWins
+            if (leftIdx < rightIdx) { // leftWins
                 majorityGraph[voterName][leftName].array.push(rightName)
                 majorityGraph[voterName][leftName].counts += 1
                 whoWon[voterName][leftName + "-" + rightName] = leftName
@@ -771,41 +789,41 @@ function whoWinsPerVoter() {
         }
     }
 
-    return {majorityGraph: majorityGraph, whoWon: whoWon}
+    return { majorityGraph: majorityGraph, whoWon: whoWon }
 }
 
 function generateMajorityGraph() {
     const obj = whoWinsPerVoter()
     const whoWon = obj.whoWon
-    
+
     const inputVals = {}
-    for(let voterId in whoWon) {
+    for (let voterId in whoWon) {
         const inputId = "col-" + voterId + "-input"
         inputVals[voterId] = parseInt(document.getElementById(inputId).value)
     }
 
     const whoWonTotals = {}
-    for(let nameDuo in whoWon[votes[0].name]) {
+    for (let nameDuo in whoWon[votes[0].name]) {
         const names = nameDuo.split('-')
         const leftName = names[0]
         const rightName = names[1]
-        whoWonTotals[nameDuo] = {[leftName]: 0, [rightName]: 0}
+        whoWonTotals[nameDuo] = { [leftName]: 0, [rightName]: 0 }
     }
 
-    for(let voterId in whoWon) {
+    for (let voterId in whoWon) {
         const voterInWhoWon = whoWon[voterId]
-        for(let nameDuo in whoWon[voterId]) {
+        for (let nameDuo in whoWon[voterId]) {
             const whoWonInNameDuo = voterInWhoWon[nameDuo]
             whoWonTotals[nameDuo][whoWonInNameDuo] += inputVals[voterId]
         }
     }
 
     const majorityGraph = {}
-    for(let idx in names) {
+    for (let idx in names) {
         const name = names[idx]
         majorityGraph[name] = []
     }
-    for(let nameDuo in whoWonTotals) {
+    for (let nameDuo in whoWonTotals) {
         const whoWon = whoWonTotals[nameDuo]
 
         const names = nameDuo.split('-')
@@ -813,8 +831,8 @@ function generateMajorityGraph() {
         const rightName = names[1]
         const leftVal = whoWon[leftName]
         const rightVal = whoWon[rightName]
-        
-        if(leftVal >= rightVal) {
+
+        if (leftVal >= rightVal) {
             majorityGraph[leftName].push(rightName)
         }
         else {
@@ -822,33 +840,33 @@ function generateMajorityGraph() {
         }
     }
 
-    return {majorityGraph: majorityGraph, whoWonTotals, whoWonTotals}
+    return { majorityGraph: majorityGraph, whoWonTotals, whoWonTotals }
 }
 
 function findIndexOfName(name, voteOrder) {
-    for(let i = 1; i <= names.length; i++) {
+    for (let i = 1; i <= names.length; i++) {
         const vote = voteOrder[i]
-        if(name == vote.name) {
+        if (name == vote.name) {
             return i
         }
     }
 }
 
 function generateVotingResultsTable(bucklin, stv, copeland) {
-    const parent = document.getElementById('votingResults') 
+    const parent = document.getElementById('votingResults')
     parent.innerHTML = ""
-    
+
     const div = document.createElement('div')
     const header = document.createElement('h3')
     header.innerText = "Voting Results"
     div.appendChild(header)
 
     parent.appendChild(div)
-    
+
     const table = document.createElement('table')
     table.append(generateTableHeader(["Rank", "Bucklin", "Single Transferable Vote", "Copeland"]))
     const rows = generateVotingResultTableBody(bucklin, stv, copeland)
-    for(let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
         const row = rows[i]
         table.append(row)
     }
@@ -858,7 +876,7 @@ function generateVotingResultsTable(bucklin, stv, copeland) {
 
 function generateTableHeader(headers) {
     const headerRow = document.createElement('tr')
-    for(let i = 0; i < headers.length; i++) {
+    for (let i = 0; i < headers.length; i++) {
         const header = document.createElement('th')
         header.innerText = headers[i]
         headerRow.appendChild(header)
@@ -868,7 +886,7 @@ function generateTableHeader(headers) {
 
 function generateVotingResultTableBody(bucklin, stv, copeland) {
     const rows = []
-    for(let i = 0; i < names.length; i++) {
+    for (let i = 0; i < names.length; i++) {
         const row = document.createElement('tr')
         row.append(generateTableCell(i + 1)) // rank
         row.append(generateBucklinCell(bucklin[i]))
@@ -882,7 +900,7 @@ function generateVotingResultTableBody(bucklin, stv, copeland) {
 
 function generateTableCell(data) {
     const cell = document.createElement('td')
-    if(data) {
+    if (data) {
         cell.innerText = data
     }
     return cell
@@ -890,7 +908,7 @@ function generateTableCell(data) {
 
 function generateBucklinCell(bucklinData) {
     let text = ""
-    if(bucklinData) {
+    if (bucklinData) {
         text = "Name: " + bucklinData.name + " k: " + bucklinData.k
         return generateTableCell(text)
     }
@@ -898,37 +916,37 @@ function generateBucklinCell(bucklinData) {
 }
 
 function generateMajorityGraphTable(majorityGraph) {
-    const parent = document.getElementById('majorityGraph') 
+    const parent = document.getElementById('majorityGraph')
     parent.innerHTML = ""
-    
+
     const div = document.createElement('div')
     const header = document.createElement('h3')
     header.innerText = "Majority Graph"
     div.appendChild(header)
     parent.appendChild(div)
-    
+
     const table = document.createElement('table')
     table.append(generateTableHeader(["Rank", "Candidate", "Defeats"]))
     const rows = generateMajorityGraphTableBody(majorityGraph)
-    for(let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
         const row = rows[i]
         table.append(row)
     }
 
     parent.append(table)
-    
+
 }
 
 function generateMajorityGraphTableBody(majorityGraph) {
     const rows = []
     let ctr = 1
-    for(let name in majorityGraph) {
+    for (let name in majorityGraph) {
         const row = document.createElement('tr')
         const wins = majorityGraph[name]
         let winString = ""
-        for(let i = 0; i < wins.length; i++) {
+        for (let i = 0; i < wins.length; i++) {
             const defeated = wins[i]
-            if(i == (wins.length - 1)) {
+            if (i == (wins.length - 1)) {
                 winString += defeated
             }
             else {
@@ -942,4 +960,14 @@ function generateMajorityGraphTableBody(majorityGraph) {
         rows.push(row)
     }
     return rows
+}
+
+function generateResultTables() {
+    const bucklinData = bucklin()
+    const stvData = stv()
+    const copelandData = copeland()
+    const majorityGraph = generateMajorityGraph().majorityGraph
+
+    generateVotingResultsTable(bucklinData, stvData, copelandData)
+    generateMajorityGraphTable(majorityGraph)
 }
