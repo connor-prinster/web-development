@@ -22,9 +22,9 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
 
   const particleSystem = ParticleSystem(LanderGame.particleGraphics)
 
-  function initialize() {
+  function initialize () {
     elapsedCountdown = 3000
-    countdown = false
+    countdown = true
     gameOver = false
     askedForScore = false
     winner = false
@@ -33,7 +33,7 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     initializeLander()
   }
 
-  function initializeHtml() {
+  function initializeHtml () {
     canvas = this.document.getElementById('canvas-container')
     context = canvas.getContext('2d')
     context.lineWidth = 3
@@ -42,12 +42,12 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     procedural.doProcedural()
   }
 
-  function initializeLander() {
+  function initializeLander () {
     const initLocation = { x: 0, y: 0 }
     lander = new Lander(constants.paths.landerPath, initLocation)
   }
 
-  function gameLoop(time) {
+  function gameLoop (time) {
     const elapsedTime = time - prevTime
     prevTime = time
     processInput(elapsedTime)
@@ -57,7 +57,7 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     requestAnimationFrame(gameLoop)
   }
 
-  function processInput(elapsedTime) {
+  function processInput (elapsedTime) {
     if (!countdown && !gameOver && !winner && LanderGame.playing) {
       if (inputs.booleans.rotLeft) {
         lander.rotLeft()
@@ -69,11 +69,10 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
         thrust.play()
         lander.thrust(elapsedTime)
       }
-
     }
   }
 
-  function update(elapsedTime) {
+  function update (elapsedTime) {
     if (thrust.timeLeft < 0) {
       thrust.stop()
       thrust.timeLeft = constants.math.sound.timeLeft
@@ -108,12 +107,12 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     inputs.resetBooleans()
   }
 
-  function addScore(score, name) {
+  function addScore (score, name) {
     const localStorageHelper = new LocalStorageHelper()
     localStorageHelper.addScore({ name: name, score: score })
   }
 
-  function updateCountdown(elapsedTime) {
+  function updateCountdown (elapsedTime) {
     elapsedCountdown -= elapsedTime
     if (elapsedCountdown <= 0) {
       countdown = false
@@ -122,12 +121,11 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     }
   }
 
-  function updateGame(elapsedTime) {
+  function updateGame (elapsedTime) {
     lander.move(elapsedTime)
     if (inputs.booleans.thrust && lander.data.fuel > 0) {
       particleSystem.shipThrust.update(elapsedTime, lander, true)
-    }
-    else {
+    } else {
       particleSystem.shipThrust.update(elapsedTime, lander, false)
     }
     if (checkIntersections(procedural.lines)) {
@@ -149,7 +147,7 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     }
   }
 
-  function checkIntersections(lines) {
+  function checkIntersections (lines) {
     if (lander.data.center) {
       const imager = lander.image.image
       const ratio = constants.math.lander.landerSizeRatio
@@ -174,7 +172,7 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     return false
   }
 
-  function lineCircleIntersection(pt1, pt2, circle) {
+  function lineCircleIntersection (pt1, pt2, circle) {
     const v1 = { x: pt2.x - pt1.x, y: pt2.y - pt1.y }
     const v2 = { x: pt1.x - circle.center.x, y: pt1.y - circle.center.y }
     const b = -2 * (v1.x * v2.x + v1.y * v2.y)
@@ -195,7 +193,7 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     return false
   }
 
-  function render(elapsedTime) {
+  function render (elapsedTime) {
     const draw = new Draw(context, canvas)
     if (countdown) {
       renderCountdown(draw)
@@ -208,23 +206,23 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     }
   }
 
-  function renderCountdown(draw) {
+  function renderCountdown (draw) {
     draw.drawBackground()
     draw.drawCountdown(Math.ceil(elapsedCountdown / 1000), level)
   }
 
-  function renderGame(elapsedTime, draw) {
+  function renderGame (elapsedTime, draw) {
     context.clearRect(0, 0, canvas.width, canvas.height)
     draw.clearCanvas()
 
     draw.drawBackground()
-    draw.drawLander(lander)
     draw.drawLanderInformation(lander)
     draw.drawTerrain(procedural)
     particleSystem.shipThrust.render()
+    draw.drawLander(lander)
   }
 
-  function findCenter() {
+  function findCenter () {
     const imager = lander.image.image
     const ratio = constants.math.lander.landerSizeRatio
     const endWidth = imager.width * ratio
@@ -237,7 +235,7 @@ LanderGame.screens['game-play'] = (function (game, objects, renderer, graphics, 
     }
   }
 
-  function run() {
+  function run () {
     prevTime = performance.now()
     requestAnimationFrame(gameLoop)
   }

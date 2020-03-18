@@ -44,8 +44,7 @@ LanderGame.game = (function (screens) {
     }
     initializeHtmlButtons()
     // Make the main-menu screen the active one
-    // showScreen('main-menu')
-    showScreen('game-play')
+    showScreen('main-menu')
   }
 
   function initializeHtmlButtons () {

@@ -37,7 +37,7 @@ class Constants {
         timeConst: 1,
         fuelBurn: 0.5,
         circleRadius: 12,
-        velocityModifier: 40
+        velocityModifier: 30
       },
       landerText: {
         font: '20px monospace',
@@ -50,7 +50,15 @@ class Constants {
         font: '80px monospace'
       },
       canvasData: { height: 800, width: 800 },
-      terrainData: { maxTerrainHeight: 300, landingPadOne: 100, landingPadTwo: 75, landingPadMargin: 50, mean: 10, stdDev: 50, smallestLine: 35 }
+      terrainData: {
+        maxTerrainHeight: 300,
+        landingPadOne: 125,
+        landingPadTwo: 100,
+        landingPadMargin: 50,
+        mean: 10,
+        stdDev: 50,
+        smallestLine: 30
+      }
     }
 
     const smokeImage = new Image()
@@ -64,7 +72,7 @@ class Constants {
         centerOffset: { mean: 10, stddev: 20 },
         size: { mean: 10, stdev: 10 },
         speed: { mean: 0, stdev: 1 },
-        lifetime: { mean: 1, stdev: 5 },
+        lifetime: { mean: 1, stdev: 5 }
       },
       particleBurstFire: {
         image: fireImage,
@@ -72,14 +80,14 @@ class Constants {
         centerOffset: { mean: 10, stddev: 20 },
         size: { mean: 10, stdev: 10 },
         speed: { mean: 0, stdev: 1 },
-        lifetime: { mean: 1, stdev: 5 },
+        lifetime: { mean: 1, stdev: 5 }
       },
       particleThrust: {
         image: smokeImage,
         width: this.math.canvasData.width,
         size: { mean: 2, stdev: 1 },
         speed: { mean: 0, stdev: 0.01 },
-        lifetime: { mean: 100, stdev: 500 }
+        lifetime: { mean: 100, stdev: 50 }
       }
     }
 
