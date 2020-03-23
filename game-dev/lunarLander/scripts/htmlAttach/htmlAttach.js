@@ -1,34 +1,35 @@
 class HtmlAttach {
+  backButtons (showScreen) {
+    const backButtons = document.getElementsByClassName('back-button')
 
-    constructor() {}
-
-    backButtons(showScreen) {
-        const backButtons = document.getElementsByClassName('back-button')
-
-        for(let i = 0; i < backButtons.length; i++) {
-            const that = this
-            let btn = backButtons[i]
-            console.log("button", btn)
-            btn.addEventListener('click', () => {showScreen('main-menu')})
-        }
+    for (let i = 0; i < backButtons.length; i++) {
+      const btn = backButtons[i]
+      btn.addEventListener('click', () => {
+        showScreen('main-menu')
+        LanderGame.playing = false
+      })
     }
+  }
 
-    mainMenu(showScreen) {
-        let btnIdList = [
-            {buttonId: 'newGameBtn', destinationScreen: 'game-play'},
-            {buttonId: 'highScoresBtn', destinationScreen: 'highscores'},
-            {buttonId: 'customizeControlsBtn', destinationScreen: 'customize-controls'},
-            {buttonId: 'creditsBtn', destinationScreen: 'credits'}
-        ]
+  mainMenu (showScreen) {
+    const btnIdList = [
+      { buttonId: 'newGameBtn', destinationScreen: 'game-play' },
+      { buttonId: 'highScoresBtn', destinationScreen: 'highscores' },
+      { buttonId: 'customizeControlsBtn', destinationScreen: 'customize-controls' },
+      { buttonId: 'creditsBtn', destinationScreen: 'credits' }
+    ]
 
-        for(let idx in btnIdList) {
-            const btn = btnIdList[idx]
+    for (const idx in btnIdList) {
+      const btn = btnIdList[idx]
 
-            const element = document.getElementById(btn.buttonId)
-            element.addEventListener(
-                'click', 
-                () => {showScreen(btn.destinationScreen)}
-            )
-        }
+      const elements = document.getElementsByClassName(btn.buttonId)
+      for (let i = 0; i < elements.length; i++) {
+        const element = elements[i]
+        element.addEventListener(
+          'click',
+          () => { showScreen(btn.destinationScreen) }
+        )
+      }
     }
+  }
 }

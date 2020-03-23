@@ -1,14 +1,14 @@
-LanderGame.screens['main-menu'] = (function(game) {
-    function initialize() {
+LanderGame.screens['main-menu'] = (function (game) {
+  function initialize () {
 
-    }
+  }
 
-    function run() {
+  function run () {
 
-    }
+  }
 
-    return {
-        initialize: initialize,
-        run: run
-    }
+  return {
+    initialize: initialize,
+    run: run
+  }
 })()

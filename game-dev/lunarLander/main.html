@@ -10,26 +10,29 @@
     <div id="main-menu" class="screen">
         <div id="main-menu-screen">
             <div id="mainButtons">
-                <button id="newGameBtn">New Game</button>
-                <button id="highScoresBtn">High Scores</button>
-                <button id="customizeControlsBtn">Customize Controls</button>
-                <button id="creditsBtn">Credits</button>
+                <button class="newGameBtn">New Game</button>
+                <button class="highScoresBtn">High Scores</button>
+                <button class="customizeControlsBtn">Customize Controls</button>
+                <button class="creditsBtn">Credits</button>
             </div>
         </div>
     </div>
     <div id="game-play" class="screen">
         <div id="game-play-screen">
-            <p>Game screen</p>
             <button class="back-button">Back to Main Menu</button>
-            <canvas id="canvas-container" width="1024" height="1024" style="width: 50%; height: 50%"></canvas>
+            <button id="newInGame">New Game</button>
+            <canvas id="canvas-container" width="800" height="800"></canvas>
+
         </div>
     </div>
     <div id="highscores" class="screen">
         <p>High Scores</p>
         <button class="back-button">Back to Main Menu</button>
+        <div id="highscore-list"></div>
     </div>
     <div id="customize-controls" class="screen">
-        <p>customize Controls</p>
+        <p>Customize Controls</p>
+        <div id="customize-buttons"></div>
         <button class="back-button">Back to Main Menu</button>
     </div>
     <div id="credits" class="screen">
@@ -44,13 +47,24 @@
         screens: {},
         input: {},
         objects: {},
-        render: []
+        render: [],
+        playing: false
     }
 </script>
 <script src="./scripts/game.js"></script>
+<script src="./scripts/helper/random.js"></script>
 <script src="./scripts/htmlAttach/htmlAttach.js"></script>
+<script src="./scripts/helper/sounder.js"></script>
+<script src="./scripts/helper/localStorageHelper.js"></script>
 <!-- required objects and such -->
+<script src="./scripts/helper/input.js"></script>
+<script src="./scripts/particles/graphics.js"></script>
+<script src="./scripts/particles/circleParticles.js"></script>
+<script src="./scripts/particles/linearParticles.js"></script>
+<script src="./scripts/particles/particleSystem.js"></script>
 <script src="./scripts/constants/constants.js"></script>
+<script src="./scripts/helper/procedural.js"></script>
+<script src="./scripts/draw/drawables.js"></script>
 <script src="./scripts/draw/draw.js"></script>
 <script src="./scripts/lander/lander.js"></script>
 <!-- pages -->
