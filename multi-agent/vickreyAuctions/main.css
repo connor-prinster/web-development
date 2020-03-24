@@ -1,0 +1,66 @@
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.nameCell {
+    width: 60px;
+    height: 35px;
+    /* padding: 10px; */
+    padding-top: 10px;
+}
+
+.voteCell {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.voteCell input {
+    width: 60px;
+    height: 20px;
+}
+
+.orderCell {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.orderCell input {
+    width: 71px;
+    height: 20px;
+}
+
+.blankCell {
+    width: 60px;
+    height: 35px;
+}
+
+.tables {
+    margin: 20px
+}
+
+table,
+tr {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table {
+    border-spacing: 15px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.addCustom {
+    display: flex;
+    flex-direction: row;
+}
+
+.addCustom input {
+    width: 100px;
+}
