@@ -1,0 +1,17 @@
+{
+    "name": "frogger",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "nodemon server.js",
+        "kill": "taskkill /im node.exe /F",
+        "clean": "rmdir .\\node_modules /s /q & npm install"
+    },
+    "dependencies": {
+        "socket.io": "2.3.*",
+        "present": "1.0.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.2",
+        "ws": "3.3.2"
+    }
+}
