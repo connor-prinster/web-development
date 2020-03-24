@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./design/main.css">
+    <title>Frogger</title>
+</head>
+
+<body onload="FroggerGame.game.initialize()">
+    <div id="main-menu" class="screen">
+        <div id="main-menu-screen">
+            <div id="mainButtons">
+                <button class="newGameBtn">New Game</button>
+                <button class="highScoresBtn">High Scores</button>
+                <button class="customizeControlsBtn">Customize Controls</button>
+                <button class="creditsBtn">Credits</button>
+            </div>
+        </div>
+    </div>
+    <div id="game-play" class="screen">
+        <div id="game-play-screen">
+            <button class="back-button">Back to Main Menu</button>
+            <button id="newInGame">New Game</button>
+            <canvas id="canvas-container" width="800" height="800"></canvas>
+        </div>
+    </div>
+    <div id="highscores" class="screen">
+        <p>High Scores</p>
+        <button class="back-button">Back to Main Menu</button>
+        <div id="highscore-list"></div>
+    </div>
+    <div id="customize-controls" class="screen">
+        <p>Customize Controls</p>
+        <div id="customize-buttons"></div>
+        <button class="back-button">Back to Main Menu</button>
+    </div>
+    <div id="credits" class="screen">
+        <p>Created by Connor Prinster</p>
+        <button class="back-button">Back to Main Menu</button>
+    </div>
+</body>
+
+<!-- Navigation -->
+<script>
+    let FroggerGame = {
+        screens: {},
+        input: {},
+        objects: {},
+        render: [],
+    }
+</script>
+<!-- helpers -->
+<script src="./scripts/game.js"></script>
+<script src="./scripts/helper/random.js"></script>
+<script src="./scripts/helper/sounder.js"></script>
+<script src="./scripts/helper/localStorageHelper.js"></script>
+<script src="./scripts/helper/input.js"></script>
+<script src="./scripts/constants.js"></script>
+
+<!-- required objects and such -->
+<script src="./scripts/particles/graphics.js"></script>
+<script src="./scripts/particles/circleParticles.js"></script>
+<script src="./scripts/particles/linearParticles.js"></script>
+<script src="./scripts/particles/particleSystem.js"></script>
+<!-- pages -->
+<script src="./scripts/pages/mainMenu.js"></script>
+<script src="./scripts/pages/gamePlay.js"></script>
+<script src="./scripts/pages/highscores.js"></script>
+<script src="./scripts/pages/customizeControls.js"></script>
+<script src="./scripts/pages/credits.js"></script>
+
+</html>
