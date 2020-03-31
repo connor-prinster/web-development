@@ -1,8 +1,7 @@
 class Drawable {
-  constructor (imageSource, location) {
+  constructor (imageSource) {
     this.image = new Image()
     this.image.src = imageSource
-    this.image.isReady = true
-    this.location = location
+    this.src = imageSource
   }
 }

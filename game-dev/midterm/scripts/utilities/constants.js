@@ -1,86 +1,57 @@
-MidtermGame.constants = function() {
-  const basePath = './design/'
-  const imageBasePath = basePath + 'images/'
-  const soundBasePath = basePath + 'audio/'
-
-  const paths = {
-    landerPath: imageBasePath + "",
-    crashPath: soundBasePath + "",
-    particles: {
-      fire: imageBasePath + 'fire.png',
-      smoke: imageBasePath + 'smoke-2.png',
-      smoke1: imageBasePath + 'smoke.png'
-    }
-  }
-  const strings = {
-  }
-  const math = {
-    sound: {
-      timeLeft: 1000
+MidtermGame.constants = function () {
+  this.math = {
+    canvas: {
+      width: 512,
+      height: 512,
+      either: 512
     },
-    lander: {
-      landerSizeRatio: 0.1,
-      rotSpeed: 0.02,
-      circle: 360,
-      gravity: 0.00003,
-      thrustRate: 0.0003,
-      timeConst: 1,
-      fuelBurn: 0.5,
-      circleRadius: 12,
-      velocityModifier: 30
+    toRadians: function (degrees) {
+      return (degrees * (Math.PI / 180))
     },
-    landerText: {
-
-    },
-    countdownText: {
-
-    },
-    canvasData: { height: 800, width: 800 }
-  }
-
-  const smokeImage = new Image()
-  smokeImage.src = paths.particles.smoke
-  const fireImage = new Image()
-  fireImage.src = paths.particles.fire
-  const particles = {
-    particleBurstSmoke: {
-      image: smokeImage,
-      center: { x: 300, y: 300 },
-      centerOffset: { mean: 10, stddev: 20 },
-      size: { mean: 10, stdev: 10 },
-      speed: { mean: 0, stdev: 1 },
-      lifetime: { mean: 1, stdev: 5 }
-    },
-    particleBurstFire: {
-      image: fireImage,
-      center: { x: 300, y: 300 },
-      centerOffset: { mean: 10, stddev: 20 },
-      size: { mean: 10, stdev: 10 },
-      speed: { mean: 0, stdev: 1 },
-      lifetime: { mean: 1, stdev: 5 }
-    },
-    particleThrust: {
-      image: smokeImage,
-      width: math.canvasData.width,
-      size: { mean: 2, stdev: 1 },
-      speed: { mean: 0, stdev: 0.01 },
-      lifetime: { mean: 100, stdev: 50 }
+    time: {
+      linearParticles: 500
     }
   }
 
-  math.terrainData.minTerrainHeight = math.canvasData.height - 20
+  this.object = {
+    ratio: .5,
+    speed: 3
+  }
 
-  colors = {
-    terrain: '#FFA630',
-    safeZone: '#09E85E',
-    white: '#FFFFFF'
+
+  this.colors = {
+    success: { fill: '#FCEC52', stroke: '#FBB02D' }
+  }
+
+  this.pages = {
+    gamePlay: 'game-play',
+    highscores: 'highscores',
+    mainMenu: 'main-menu',
+    customizeControls: 'customize-controls',
+    credits: 'credits',
+    active: 'active'
+  }
+
+  this.buttons = {
+    gamePlay: 'newGameBtn',
+    highscores: 'highscoresBtn',
+    mainMenu: 'back-button',
+    customizeControls: 'customizeControlsBtn',
+    credits: 'creditsBtn',
+  }
+
+  this.strings = {
+    easy: { title: 'easy', imagesPath: 'Tile128-', numTiles: 14, by: 4 },
+    hard: { title: 'hard', imagesPath: 'Tile64-', numTiles: 62, by: 8 },
+    empty: 'empty'
   }
 
   return {
-    paths: paths,
-    strings: strings,
     math: math,
-    particles: particles,
+    object: object,
+    pages: pages,
+    buttons: buttons,
+    strings: strings,
     colors: colors
   }
-}
+}()

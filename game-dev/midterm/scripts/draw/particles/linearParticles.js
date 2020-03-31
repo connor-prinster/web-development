@@ -1,78 +1,64 @@
-function ParticleThrust (graphics, spec) {
-  const that = {}
-  const constants = MidtermGame.constants
-  let particles = []
+function ParticleSystemLinear(colors, graphics, spec) {
+    let that = {};
+    let particles = [];
 
-  function create (spec) {
-    const that = {}
+    const random = MidtermGame.utilities.random
+    function create(spec, particleOffset) {
+        let that = {};
 
-    spec.fill = 'rgb(255, 255, 255)'
-    spec.alive = 0
+        spec.fill = colors.fill;
+        spec.stroke = colors.stroke;
+        spec.alive = 0;
 
-    that.update = function (elapsedTime) {
-      spec.center.x += (spec.speed * spec.direction.x * elapsedTime)
-      spec.center.y += (spec.speed * spec.direction.y * elapsedTime)
-      spec.alive += elapsedTime
+        that.update = function (elapsedTime) {
+            spec.center.x += (spec.speed * spec.direction.x * elapsedTime);
+            spec.center.y += (spec.speed * spec.direction.y * elapsedTime);
+            spec.alive += elapsedTime;
 
-      spec.rotation += spec.speed * 0.5
+            spec.rotation += spec.speed * 0.5;
 
-      return spec.alive < spec.lifetime
+            return spec.alive < spec.lifetime;
+        };
+
+        that.render = function () {
+            graphics.drawParticle(spec, particleOffset);
+        };
+
+        return that;
     }
 
-    that.draw = function () {
-      graphics.drawRectangle(spec)
-    }
+    that.update = function (elapsedTime, direction, ranges, particleOffset) {
+        let keepMe = [];
+        if (direction && ranges) {
+            for (let particle = 0; particle < particles.length; particle++) {
+                if (particles[particle].update(elapsedTime)) {
+                    keepMe.push(particles[particle]);
+                }
+            }
+            particles = keepMe;
 
-    return that
-  }
-
-  that.update = function (elapsedTime, lander, makeMore) {
-    const keepMe = []
-    for (let particle = 0; particle < particles.length; particle++) {
-      if (particles[particle].update(elapsedTime)) {
-        keepMe.push(particles[particle])
-      }
-    }
-    particles = keepMe
-
-    const imager = lander.image.image
-    const ratio = constants.math.lander.landerSizeRatio
-    const endWidth = imager.width * ratio
-    const endHeight = imager.height * ratio
-
-    const location = lander.data.location
-    const center = {
-      x: (endWidth - location.x) / 2,
-      y: (endHeight - location.y) / 2
-    }
-
-    const angle = lander.data.angle
-
-    if (makeMore) {
-      for (let particle = 0; particle < 5; particle++) {
-        const size = Math.abs(Random.nextGaussian(spec.size.mean, spec.size.stdev))
-        const randomCenter = {
-          x: Random.nextRange(center.x - (endWidth / 2), center.x),
-          y: Random.nextRange(center.y + (endHeight / 2), center.y)
+            for (let particle = 0; particle < 3; particle++) {
+                let size = Math.abs(random.nextGaussian(spec.size.mean, spec.size.stdev));
+                //   console.log("ranges", ranges)
+                let center = { x: random.nextRange(ranges.x.start, ranges.x.end), y: random.nextRange(ranges.y.start, ranges.y.end) }
+                let p = create({
+                    center: center,
+                    size: { x: size, y: size },
+                    rotation: 0,
+                    speed: 0.05,// + Math.abs(random.nextGaussian(spec.speed.mean, spec.speed.stdev)),
+                    direction: direction,
+                    lifetime: 100// random.nextGaussian(100, 1)
+                }, particleOffset);
+                particles.push(p);
+            }
         }
-        const p = create({
-          center: randomCenter,
-          size: { x: size, y: size },
-          rotation: 0,
-          speed: -(0.005 + Random.nextGaussian(spec.speed.mean, spec.speed.stdev)),
-          direction: { x: Math.sin(-angle), y: Math.cos(-angle) },
-          lifetime: Random.nextGaussian(spec.lifetime.mean, spec.lifetime.stdev)
-        })
-        particles.push(p)
-      }
-    }
-  }
+    };
 
-  that.render = function () {
-    for (let p = particles.length - 1; p >= 0; p--) {
-      particles[p].draw()
-    }
-  }
+    that.render = function () {
+        for (let p = particles.length - 1; p >= 0; p--) {
+            particles[p].render();
+        }
+    };
 
-  return that
+    return that;
 }

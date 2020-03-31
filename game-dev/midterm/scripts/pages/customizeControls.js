@@ -1,56 +1,48 @@
-MidtermGame.screens['customize-controls'] = (function (game, objects, renderer, graphics, input) {
-  function initialize () { }
+MidtermGame.screens['customize-controls'] = (function(game, keyboard, constants, storage) {
 
-  let globalCommand = null
+  function initialize() {}
 
-  function run () {
-    fillButtons()
-  }
+  // function acceptNewControl(handler, methodName, oldKey) {
+  //   const screen = document.getElementById('customize-controls')
+  //   // create visual indication that user can press a new control
+  //   let setter = document.createElement('div');
+  //   setter.innerHTML = "PRESS NEW CONTROL KEY FOR BINDING"
+  //   setter.setAttribute('tabindex', '0');
+  //   setter.classList.add('set-controls');
+  //   setter.focus();
+  //   setter.addEventListener('keydown', function(e) {
+  //     keyboard.registerHandler(handler, e.key, oldKey)
+  //     const controls = storage.retrieveControls()
+  //     controls[methodName].key = e.key
+  //     storage.addControls(controls)
+  //     setter.remove()
+  //     run()
+  //   })
+  //   screen.appendChild(setter)
+  // }
 
-  function keyPress (key) {
-    const selectedCommand = document.getElementById(globalCommand + 'id')
-    selectedCommand.classList.remove('selected')
+  
+  function run() {
+    // const customizeButtons = document.getElementById('customize-buttons')
+    // customizeButtons.innerHTML = ''
 
-    MidtermGame.inputs.keyBindings[globalCommand] = key.key
-    const localStorage = {}
-    localStorage.addControls(inputs.keyBindings)
-
-    window.removeEventListener('keypress', keyPress)
-    fillButtons()
-  }
-
-  function fillButtons () {
-    const keyBindings = MidtermGame.inputs.keyBindings
-    const buttons = document.getElementById('customize-buttons')
-    buttons.innerHTML = ''
-
-    for (const command in keyBindings) {
-      const div = document.createElement('div')
-      div.classList.add('customize-buttons')
-
-      const button = document.createElement('button')
-      button.id = command
-      button.innerText = command
-      button.onclick = function () {
-        globalCommand = command
-        const selectedCommand = document.getElementById(button.id + 'id')
-        selectedCommand.classList.add('selected')
-        window.addEventListener('keypress', keyPress)
-      }
-
-      const commandKey = document.createElement('div')
-      commandKey.classList.add('command-key')
-      commandKey.id = command + 'id'
-      commandKey.innerText = keyBindings[command]
-
-      div.appendChild(button)
-      div.appendChild(commandKey)
-      buttons.appendChild(div)
-    }
+    // const controls = MidtermGame.utilities.storage.retrieveControls()
+    // for(let idx in controls) {
+    //   const buttonDiv = document.createElement('button')
+    //   buttonDiv.classList.add('hoverButton', 'buttonTransCust')
+    //   const binding = controls[idx]
+    //   const key = binding.key
+    //   const methodName = binding.method
+    //   buttonDiv.onclick = function() {
+    //     acceptNewControl(MidtermGame.object[methodName], methodName, key)
+    //   }
+    //   buttonDiv.innerHTML = methodName + " : " + key
+    //   customizeButtons.appendChild(buttonDiv)
+    // }
   }
 
   return {
     initialize: initialize,
     run: run
   }
-})()
+}(MidtermGame.game, MidtermGame.input.keyboard, MidtermGame.constants, MidtermGame.utilities.storage));

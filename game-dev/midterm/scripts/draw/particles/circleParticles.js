@@ -1,69 +1,61 @@
-function ParticleBurst (graphics, spec) {
-  const that = {}
-  let particles = []
+function ParticleSystem(colors, graphics, spec) {
+  let that = {};
+  let particles = [];
+  const random = FroggerGame.utilities.random
 
-  function create (spec) {
-    const that = {}
+  function create(spec) {
+      let that = {};
 
-    spec.fill = 'rgb(255, 255, 255)'
-    spec.stroke = 'rgb(0, 0, 0)'
-    spec.alive = 0
+      spec.fill = colors.fill
+      spec.stroke = colors.stroke
+      spec.alive = 0;
 
-    that.update = function (elapsedTime) {
-      spec.center.x += (spec.speed * spec.direction.x * elapsedTime)
-      spec.center.y += (spec.speed * spec.direction.y * elapsedTime)
-      spec.alive += elapsedTime
+      that.update = function(elapsedTime) {
+          spec.center.x += (spec.speed * spec.direction.x * elapsedTime);
+          spec.center.y += (spec.speed * spec.direction.y * elapsedTime);
+          spec.alive += elapsedTime;
 
-      spec.rotation += spec.speed * 0.00005
+          spec.rotation += spec.speed * 0.5;
 
-      return spec.alive < spec.lifetime
-    }
+          return spec.alive < spec.lifetime;
+      };
 
-    that.draw = function () {
-      graphics.drawObject(spec.image, spec.center, spec.rotation, spec.size)
-    }
+      that.render = function() {
+          graphics.drawRectangle(spec);
+          // graphics.renderTexture(spec.image, spec.center, spec.rotation, spec.size);
+      };
 
-    return that
+      return that;
   }
 
-  that.update = function (elapsedTime, center, angle) {
-    const keepMe = []
-    for (let particle = 0; particle < particles.length; particle++) {
-      if (particles[particle].update(elapsedTime, angle)) {
-        keepMe.push(particles[particle])
+  that.update = function(elapsedTime) {
+      let keepMe = [];
+      for (let particle = 0; particle < particles.length; particle++) {
+          if (particles[particle].update(elapsedTime)) {
+              keepMe.push(particles[particle]);
+          }
       }
-    }
-    particles = keepMe
+      particles = keepMe;
 
-    for (let particle = 0; particle < 10; particle++) {
-      const size = Math.abs(Random.nextGaussian(spec.size.mean, spec.size.stdev))
-      const offset = spec.centerOffset
-      const xish = Random.nextGaussian(offset.mean, offset.stddev)
-      const yish = Random.nextGaussian(offset.mean, offset.stddev)
-
-      const particleCenter = {
-        x: center.x - xish,
-        y: center.y - yish
+      for (let particle = 0; particle < 5; particle++) {
+          let size = Math.abs(random.nextGaussian(spec.size.mean, spec.size.stdev));
+          let p = create({
+              center: { x: spec.center.x, y: spec.center.y },
+              size: {x: size, y: size},
+              rotation: 0,
+              speed: .1,//random.nextGaussian(spec.speed.mean, spec.speed.stdev),
+              direction: random.nextCircleVector(),
+              lifetime: 1000//random.nextGaussian(spec.lifetime.mean, spec.lifetime.stdev)
+          });
+          particles.push(p);
       }
+  };
 
-      const p = create({
-        image: spec.image,
-        center: particleCenter,
-        size: { x: size, y: size },
-        rotation: 0,
-        speed: Random.nextGaussian(spec.speed.mean, spec.speed.stdev),
-        direction: Random.nextCircleVector(),
-        lifetime: Random.nextGaussian(spec.lifetime.mean, spec.lifetime.stdev)
-      })
-      particles.push(p)
-    }
-  }
+  that.render = function() {
+      for (let p = particles.length - 1; p >= 0; p--) {
+          particles[p].render();
+      }
+  };
 
-  that.render = function (elapsedTime) {
-    for (let p = particles.length - 1; p >= 0; p--) {
-      particles[p].draw()
-    }
-  }
-
-  return that
+  return that;
 }

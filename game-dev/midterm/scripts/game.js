@@ -6,15 +6,11 @@ MidtermGame.game = (function (screens) {
   //
   // ------------------------------------------------------------------
   function showScreen (id) {
-
     const active = document.getElementsByClassName('active')
     for (let screen = 0; screen < active.length; screen++) {
       active[screen].classList.remove('active')
     }
     screens[id].run()
-    if (id == 'game-play') {
-      MidtermGame.playing = true
-    }
     document.getElementById(id).classList.add('active')
   }
 
@@ -25,8 +21,10 @@ MidtermGame.game = (function (screens) {
         screens[screen].initialize()
       }
     }
+
     initializeHtmlButtons()
-    showScreen('main-menu')
+    // showScreen('main-menu')
+    showScreen('game-play')
   }
 
   function initializeHtmlButtons () {
