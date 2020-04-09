@@ -1,66 +1,65 @@
-button {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.nameCell {
-    width: 60px;
-    height: 35px;
-    /* padding: 10px; */
-    padding-top: 10px;
-}
-
-.voteCell {
+.inputRow {
     display: flex;
     flex-direction: row;
-    padding: 10px;
 }
 
-.voteCell input {
-    width: 60px;
-    height: 20px;
-}
-
-.orderCell {
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-}
-
-.orderCell input {
-    width: 71px;
-    height: 20px;
-}
-
-.blankCell {
-    width: 60px;
-    height: 35px;
-}
-
-.tables {
-    margin: 20px
-}
-
-table,
-tr {
-    border: 1px solid black;
-    padding: 5px;
+.base {
+    margin: 10px
 }
 
 table {
-    border-spacing: 15px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 
-.row {
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#inputs {
     display: flex;
     flex-direction: row;
+    margin: 20px;
 }
 
-.addCustom {
-    display: flex;
-    flex-direction: row;
+#addAdvertiserBtn {
+    background-color: #5DA9E9;
 }
 
-.addCustom input {
-    width: 100px;
+#addSlotBtn {
+    background-color: #003F91;
 }
+
+#randomizeBtn {
+    background-color: #403F4C;
+}
+
+#byWhatBtn {
+    background-color: #6D326D;
+}
+
+#generateResultsBtn {
+    background-color: #3587A4;
+}
+
+/*  */
