@@ -1,0 +1,65 @@
+.inputRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.base {
+    margin: 10px
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+button {
+    background-color: #4CAF50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#inputs {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+}
+
+#addAdvertiserBtn {
+    background-color: #5DA9E9;
+}
+
+#addSlotBtn {
+    background-color: #003F91;
+}
+
+#randomizeBtn {
+    background-color: #403F4C;
+}
+
+#byWhatBtn {
+    background-color: #6D326D;
+}
+
+#generateResultsBtn {
+    background-color: #3587A4;
+}
+
+/*  */
