@@ -7,6 +7,11 @@ canvas {
     height: fit-content;
 }
 
+#mainButtons {
+    display: flex;
+    flex-direction: column;
+}
+
 #canvas-container {
     width: fit-content;
     height: fit-content;
@@ -61,6 +66,18 @@ canvas {
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
+}
+
+.buttonMenuCust {
+    transition-duration: .4s;
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+}
+
+.buttonMenuCust :hover {
+    background-color: white;
+    color: black;
 }
 
 .buttonTransCust {
