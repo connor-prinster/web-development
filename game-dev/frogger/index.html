@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./design/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <title>Frogger</title>
+</head>
+
+<body>
+    <div id="main-menu" class="screen">
+        <div id="main-menu-screen">
+            <div id="mainButtons">
+                <button class="newGameBtn hoverButton buttonMenuCust">New Game</button>
+                <button class="highscoresBtn hoverButton buttonMenuCust">High Scores</button>
+                <button class="customizeControlsBtn hoverButton buttonMenuCust">Customize Controls</button>
+                <button class="creditsBtn hoverButton buttonMenuCust">Credits</button>
+            </div>
+        </div>
+    </div>
+    <div id="game-play" class="screen">
+        <div id="game-play-screen">
+            <button id="back-button-help" class="buttonMenuCust">Back to Main Menu</button>
+            <button id="newInGame" class="buttonMenuCust">New Game</button>
+            <canvas id="canvas-container" width="1001" height="1001"></canvas>
+        </div>
+    </div>
+    <div id="highscores" class="screen">
+        <p>High Scores</p>
+        <button class="back-button">Back to Main Menu</button>
+        <div id="highscore-list"></div>
+    </div>
+    <div id="customize-controls" class="screen">
+        <p>Customize Controls</p>
+        <div id="customize-buttons"></div>
+        <button class="back-button">Back to Main Menu</button>
+    </div>
+    <div id="credits" class="screen">
+        <p>Created by Connor Prinster</p>
+        <button class="back-button">Back to Main Menu</button>
+    </div>
+    <script data-main="scripts/client/loader.js" src="scripts/client/require.js"></script>
+
+</body>
+
+</html>
