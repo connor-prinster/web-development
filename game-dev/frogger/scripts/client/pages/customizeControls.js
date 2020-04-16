@@ -26,7 +26,11 @@ FroggerGame.screens['customize-controls'] = (function(game, keyboard, constants,
     const customizeButtons = document.getElementById('customize-buttons')
     customizeButtons.innerHTML = ''
 
-    const controls = FroggerGame.utilities.storage.retrieveControls()
+    let controls = FroggerGame.utilities.storage.retrieveControls()
+    while(!controls) {
+      controls = FroggerGame.utilities.storage.retrieveControls()
+    }
+    
     for(let idx in controls) {
       const buttonDiv = document.createElement('button')
       buttonDiv.classList.add('hoverButton', 'buttonTransCust')
