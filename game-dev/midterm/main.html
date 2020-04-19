@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./design/main.css">
+    <title>Midterm</title>
+</head>
+
+<body onload="MidtermGame.game.initialize()">
+    <div id="main-menu" class="screen">
+        <div id="main-menu-screen">
+            <div class="buttonBar">
+                <button class="newMidtermGameBtn hoverButton menu-buttons">New Game</button>
+                <button class="highScoresBtn hoverButton menu-buttons">High Scores</button>
+                <button class="creditsBtn hoverButton menu-buttons">Credits</button>
+            </div>
+        </div>
+    </div>
+    <div id="game-play" class="screen">
+        <div id="game-play-screen">
+            <button class="back-button hoverButton">Back to Main Menu</button>
+            <button id='hardBtn'>HARD</button>
+            <button id='easyBtn'>EASY</button>
+            <button id="newInMidtermGame" class="hoverButton new-game-button">New Game</button>
+            <canvas id="canvas-container" width="512" height="512"></canvas>
+
+        </div>
+    </div>
+    <div id="highscores" class="screen">
+        <p class="titleText">High Scores</p>
+        <button class="back-button hoverButton">Back to Main Menu</button>
+        <div id="highscore-list">
+        </div>
+    </div>
+    <div id="customize-controls" class="screen">
+        <p class="titleText">Customize Controls</p>
+        <div id="customize-buttons" class="buttonBar"></div>
+        <button class="back-button hoverButton">Back to Main Menu</button>
+    </div>
+    <div id="credits" class="screen">
+        <p class="titleText">Created by Connor Prinster</p>
+        <button class="back-button hoverButton">Back to Main Menu</button>
+    </div>
+</body>
+
+<!-- Navigation -->
+<script>
+    let MidtermGame = {
+        screens: {},
+        utilities: {},
+        input: {},
+        render: [],
+        elements: {}
+    }
+</script>
+<!-- Utilities -->
+<script src="./scripts/utilities/constants.js"></script>
+<script src="./scripts/utilities/random.js"></script>
+<script src="./scripts/utilities/htmlAttach.js"></script>
+<script src="./scripts/utilities/input/inputKeyboard.js"></script>
+<script src="./scripts/utilities/input/inputMouse.js"></script>
+<script src="./scripts/utilities/storage.js"></script>
+<!-- Draw -->
+<script src="./scripts/draw/drawables.js"></script>
+<script src="./scripts/draw/graphics.js"></script>
+<script src="./scripts/draw/particles/circleParticles.js"></script>
+<script src="./scripts/draw/particles/linearParticles.js"></script>
+<!-- Objects -->
+<script src="./scripts/objects/audio.js"></script>
+<script src="./scripts/objects/object.js"></script>
+<script src="./scripts/objects/tile.js"></script>
+<!-- pages -->
+<script src="./scripts/pages/mainMenu.js"></script>
+<script src="./scripts/pages/gamePlay.js"></script>
+<script src="./scripts/pages/highscores.js"></script>
+<script src="./scripts/pages/customizeControls.js"></script>
+<script src="./scripts/pages/credits.js"></script>
+<script src="./scripts/game.js"></script>
+
+</html>

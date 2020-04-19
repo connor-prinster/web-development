@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+}
+
+canvas {
+    width: fit-content;
+    height: fit-content;
+}
+
+#canvas-container {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-grow: 3;
+}
+
+.titleText {
+    font-size: larger;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.buttonBar {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+#game-play-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.customize-buttons {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+}
+
+#highscore-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.highscore-sorts {
+    margin: 10px
+}
+
+.hoverButton {
+    background-color: #C5D1EB;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.buttonTransCust {
+    transition-duration: .4s;
+    background-color: #C5D1EB;
+    color: black;
+    border: 2px solid #C5D1EB;
+}
+
+.buttonTransCust:hover {
+    background-color: #92AFD7;
+    color: white;
+}
+
+.back-button {
+    transition-duration: .4s;
+    background-color: #272635;
+    color: white;
+    border: 2px solid #272635;
+}
+
+.back-button:hover {
+    background-color: #CECECE;
+    color: black;
+}
+
+.menu-buttons {
+    transition-duration: .4s;
+    background-color: #373F47;
+    color: white;
+    border: 2px solid #373F47;
+}
+
+.menu-button:hover {
+    background-color: #AAABBC;
+    color: black;
+}
+
+.new-game-button {
+    transition-duration: .4s;
+    background-color: #358600;
+    color: white;
+    border: 2px solid #358600;
+}
+
+.new-game-button:hover {
+    background-color: #9EE37D;
+    color: black;
+}
+
+.set-controls {
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0px;
+    background: #083D77;
+    opacity: 1;
+    display: block;
+    color: white;
+    opacity: .8;
+    text-align: center;
+    justify-content: center;
+}
