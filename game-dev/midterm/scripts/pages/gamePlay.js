@@ -7,12 +7,12 @@ MidtermGame.screens['game-play'] = (function (game, object, graphics, keyboard, 
 
   document.getElementById('hardBtn').onclick = function () {
     difficulty = constants.strings.hard
-    run()
+    run(constants.strings.hard)
   }
 
   document.getElementById('easyBtn').onclick = function () {
     difficulty = constants.strings.easy
-    run()
+    run(constants.strings.easy)
   }
 
   let canvas = document.getElementById('canvas-container')
@@ -53,14 +53,13 @@ MidtermGame.screens['game-play'] = (function (game, object, graphics, keyboard, 
     return false
   }
 
-  function resetBoard() {
+  function resetBoard(difficultyLevel) {
+    if(!difficultyLevel) {
+      difficulty = constants.strings.easy
+    }
     totalTime = 0
     totalClicks = 0
     winner = false
-  }
-
-  function moving(cell) {
-
   }
 
   function checkBoardFinished() {
@@ -74,7 +73,7 @@ MidtermGame.screens['game-play'] = (function (game, object, graphics, keyboard, 
     }
     if (trues === ((difficulty.by * difficulty.by) - 1)) {
       winner = true
-      storage.addScore({ difficulty: difficulty.title, clicks: totalClicks, time: Math.floor(totalTime / 1000) })
+      storage.addScore({ difficulty: difficulty.title, clicks: Math.ceil(totalClicks), time: Math.floor(totalTime / 1000) })
     }
   }
 
@@ -196,17 +195,11 @@ MidtermGame.screens['game-play'] = (function (game, object, graphics, keyboard, 
   function updateSwapping(elapsedTime) {
     if (swappingData.transitionTime <= 0) {
       finalSwap()
-      console.log(
-        board[swappingData.clickedPos.row][swappingData.clickedPos.col],
-        board[swappingData.nullPos.row][swappingData.nullPos.col]
-      )//board[swappingData.clickedPos.row][swappingData.clickedPos.col].pos = board[swappingData.clickedPos.row][swappingData.clickedPos.col].pos
       swappingData = null
     }
     else {
       swappingData.transitionTime -= elapsedTime
       incrementMove(elapsedTime, swappingData.clickedPos, swappingData.nullPos)
-      // console.log(board[swappingData.clickedPos.row][swappingData.clickedPos.col], board[swappingData.clickedPos.row][swappingData.clickedPos.col].pos)
-
     }
   }
 
@@ -300,7 +293,6 @@ MidtermGame.screens['game-play'] = (function (game, object, graphics, keyboard, 
   }
 
   function locationToCellPos(position) {
-    console.log("position", position)
     const maxEach = (constants.math.canvas.either / difficulty.by)
     const halfEach = maxEach / 2
     const x = halfEach + (position.x * maxEach)
@@ -381,8 +373,8 @@ MidtermGame.screens['game-play'] = (function (game, object, graphics, keyboard, 
     }
   }
 
-  function run() {
-    resetBoard()
+  function run(difficultyLevel) {
+    resetBoard(difficultyLevel)
 
     mouse.registerHandler('mousedown', function (e, elapsedTime) {
       const x = e.clientX - canvas.offsetLeft

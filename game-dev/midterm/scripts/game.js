@@ -24,7 +24,7 @@ MidtermGame.game = (function (screens) {
 
     initializeHtmlButtons()
     // showScreen('main-menu')
-    showScreen('game-play')
+    showScreen('main-menu')
   }
 
   function initializeHtmlButtons () {
