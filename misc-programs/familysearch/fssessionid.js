@@ -31,4 +31,34 @@ javascript: (
   }
 )()
 
-// javascript: (function () %7Blet main %3D event %3D> %7Bdocument.removeEventListener("copy"%2C main%2C true)%3Bevent.preventDefault()%3Blet clipboardData %3D event.clipboardData%3Bconst el %3D document.createElement('textarea')%3Bel.value %3D ""%3Bconst cookie %3D document.cookie.split('%3B')%3Blet goneOnce %3D false%3Bfor (let i %3D 0%3B i < cookie.length%3B i%2B%2B) %7Blet splitString %3D cookie%5Bi%5D.split("%3D")%3Bconst key %3D splitString%5B0%5D.trim()%3Bconst value %3D splitString%5B1%5D.trim()%3Bif ((key %3D%3D%3D "fssessionid") && (goneOnce %3D%3D%3D false)) %7BclipboardData.clearData()%3BclipboardData.setData("text/plain"%2C value)%3Bdocument.body.appendChild(el)%3Bel.select()%3B document.body.removeChild(el)%3Balert("Copied fssessionid to clipboard")%3BgoneOnce %3D true%3B%7D%7Dif (goneOnce %3D%3D%3D false) %7Balert("No fssessionid. Haelp")%7D%7D%3Bdocument.addEventListener("copy"%2C main%2C true)%3Bdocument.execCommand("copy")%7D)()
+// javascript: (function () %7B
+//     let main %3D event %3D> %7B
+//         document.removeEventListener("copy"%2C main%2C true)%3B
+//         event.preventDefault()%3B
+//         let clipboardData %3D 
+//         event.clipboardData%3B
+//         const el %3D document.createElement('textarea')%3B
+//         el.value %3D ""%3B
+//         const cookie %3D document.cookie.split('%3B')%3B
+//         let goneOnce %3D false%3B
+//         for (let i %3D 0%3B i < cookie.length%3B i%2B%2B) %7B
+//             let splitString %3D cookie%5Bi%5D.split("%3D")%3B
+//             const key %3D splitString%5B0%5D.trim()%3B
+//             const value %3D splitString%5B1%5D.trim()%3B
+//             if ((key %3D%3D%3D "fssessionid") && (goneOnce %3D%3D%3D false)) %7B
+//                 clipboardData.clearData()%3B
+//                 clipboardData.setData("text/plain"%2C value)%3B
+//                 document.body.appendChild(el)%3B
+//                 el.select()%3B 
+//                 document.body.removeChild(el)%3B
+//                 alert("Copied fssessionid to clipboard")%3B
+//                 goneOnce %3D true%3B
+//             %7D
+//         %7D
+//         if (goneOnce %3D%3D%3D false) %7B
+//             alert("No fssessionid. Haelp")
+//         %7D
+//     %7D%3B
+//     document.addEventListener("copy"%2C main%2C true)%3B
+//     document.execCommand("copy")%7D
+// )()
